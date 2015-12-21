@@ -12,9 +12,9 @@ class CreateOrderRowTable extends Migration
      */
     public function up()
     {
-        Schema::create('orderRow', function (Blueprint $table) {
-            $table->integer('orderId');
-            $table->integer('itemId');
+        Schema::create('order_row', function (Blueprint $table) {
+            $table->integer('order_id');
+            $table->integer('item_id');
             $table->integer('quantity',false,true);
 
             //$table->timestamps();

@@ -17,7 +17,7 @@ class CreateOrderTable extends Migration
             $table->datetime('date');
             $table->string('name');
             $table->string('address');
-            $table->integer('userId');
+            $table->integer('user_id');
             $table->integer('status');
 
             //$table->timestamps();

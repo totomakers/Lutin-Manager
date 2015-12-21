@@ -18,7 +18,7 @@ class CreateUserTable extends Migration
             $table->integer('rank',false,true);
             $table->string('email');
             $table->rememberToken();
-            $table->string('sha1password');
+            $table->string('sha1_password');
             //$table->timestamps();
         });
     }
