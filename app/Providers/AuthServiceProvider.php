@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Providers\AccountServiceProvider;
-use App\User;
 use Illuminate\Support\ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
