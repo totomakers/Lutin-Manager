@@ -12,25 +12,49 @@ use App\Models\OrderRow;
 use App\Models\User;
 use Carbon\Carbon;
 
+
 class OrderController extends Controller
 {
+    const DEFAULT_USER_ID = 0;
 
     public function __construct()
     {
     }
 
-    public function ImportOrders()
+    /**
+    * Import CSV File
+    **/
+    public function ImportOrders(Request $request)
     {
-        echo("toto");
-        $file = 'c:\test.csv';
-        $rows = array();
+        //==============
+        //Vérification =
+        //==============
+        $inputName = 'csv_file';
 
-        if (($handle = fopen($file, "r")) !== false) {
+        if (!$request->hasFile($inputName)) 
+        {
+            //ERREUR
+            return;
+        }
 
+        if (!$request->file($inputName)->isValid()) 
+        {
+            //ERREUR
+            return;
+        }
+
+        //==============
+        //Traitement ===
+        //==============
+
+        $file = $request->file($inputName);
+        if (($handle = fopen($file->path, "r")) !== false) 
+        {
             $i = 0;
             setlocale(LC_ALL, 'fr_FR.UTF-8');
 
-            while (($data = fgetcsv($handle, null, ";", "\"")) !== false) {
+            while (($data = fgetcsv($handle, null, ";", "\"")) !== false) 
+            {
                 $i++;
                 if ($i == 1)
                     continue; // on ignore la premiere ligne
@@ -40,19 +64,31 @@ class OrderController extends Controller
                 $customerName = $data[2];
                 $adress = $data[3];
 
+                //La commande existe déjà
+                if(Order::find($orderNumber))
+                {
+                    //ERREUR
+                    continue;
+                }
+
                 $order = new Order();
                 $order->date = Carbon::parse($date);
                 $order->id = intval($orderNumber);
                 $order->name = $customerName;
                 $order->address = $adress;
-                $order->user_id = 0;
-                $order->status = 0;
-                $order->save();
+                $order->user_id = DEFAULT_USER_ID;
+                $order->status = Order::WAITING;
 
+                //============
+                //Traitement 
+                //des lignes de commande
+                //============
                 $detail = str_getcsv($data[4], ";");
-                foreach ($detail as $key => $value) {
+                $orderRows = [];
+                foreach ($detail as $key => $value) 
+                {
                     $item = trim(substr($value, 0, strpos($value, "(")));
-                    if (strlen($item)<=0)
+                    if (strlen($item) <= 0)
                         continue;
                     $quantity = rtrim(substr($value, strpos($value, "(") + 1), ")");
 
@@ -61,17 +97,35 @@ class OrderController extends Controller
                     $row->item_id = $ref->id;
                     $row->order_id = $order->id;
                     $row->quantity = $quantity;
-                    $row->save();
 
-                    $items[$item] = $quantity;
+                    $orderRows[] = $row;
                 }
-                $rows[] = array($date, $orderNumber, $customerName, $adress, $items);
+            
+
+                //Vérification que notre commande a des lignes
+                if(sizeof($orderRows) <= 0)
+                {
+                    //erreur
+                    continue;
+                } 
+
+                //Vérification que la commande se sauvegarde bien
+                if($order->save())
+                {
+                    foreach($orderRows as $key => $value)
+                        $value->save();
+                }
+                else
+                {
+                    //ERREUR
+                }
             }
 
             fclose($handle);
-
         }
-
-
+        else
+        {
+            //ERREUR
+        }
     }
 }
