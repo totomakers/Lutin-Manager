@@ -6,45 +6,40 @@ use Validator;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
+use Carbon\Carbon;
+
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\OrderRow;
 use App\Models\User;
-use Carbon\Carbon;
 
 
 class OrderController extends Controller
 {
+    public function __construct() { }
+    
     const DEFAULT_USER_ID = 0;
-
-    public function __construct()
-    {
-    }
-
-    /**
-    * Import CSV File
-    **/
-    public function ImportOrders(Request $request)
+    public function importFile(Request $request)
     {
         //==============
-        //Vérification =
+        //Check
         //==============
         $inputName = 'csv_file';
 
         if (!$request->hasFile($inputName)) 
         {
-            //ERREUR
+            //ERROR
             return;
         }
 
         if (!$request->file($inputName)->isValid()) 
         {
-            //ERREUR
+            //ERROR
             return;
         }
 
         //==============
-        //Traitement ===
+        //Treatment
         //==============
 
         $file = $request->file($inputName);
@@ -57,14 +52,14 @@ class OrderController extends Controller
             {
                 $i++;
                 if ($i == 1)
-                    continue; // on ignore la premiere ligne
+                    continue; //skip the first line
 
                 $date = $data[0];
                 $orderNumber = (trim(substr($data[1], 7)));
                 $customerName = $data[2];
                 $adress = $data[3];
 
-                //La commande existe déjà
+                //order already exist
                 if(Order::find($orderNumber))
                 {
                     //ERREUR
@@ -79,10 +74,9 @@ class OrderController extends Controller
                 $order->user_id = DEFAULT_USER_ID;
                 $order->status = Order::WAITING;
 
-                //============
-                //Traitement 
-                //des lignes de commande
-                //============
+                //======================
+                //Treatment Order lines
+                //======================
                 $detail = str_getcsv($data[4], ";");
                 $orderRows = [];
                 foreach ($detail as $key => $value) 
@@ -102,14 +96,12 @@ class OrderController extends Controller
                 }
             
 
-                //Vérification que notre commande a des lignes
                 if(sizeof($orderRows) <= 0)
                 {
-                    //erreur
+                    //ERROR
                     continue;
                 } 
 
-                //Vérification que la commande se sauvegarde bien
                 if($order->save())
                 {
                     foreach($orderRows as $key => $value)
@@ -125,7 +117,7 @@ class OrderController extends Controller
         }
         else
         {
-            //ERREUR
+            //ERROR
         }
     }
 }
