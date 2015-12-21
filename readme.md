@@ -1,27 +1,63 @@
-## Laravel PHP Framework
+# Evaluat0r : Logicel d'évaluation (ENI 2015)
+---
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+#### Prérequis :
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
++ composer
++ git
++ npm
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+#### Installer l'application :
 
-## Official Documentation
++ Lancer la commande `npm install -g bower`
++ Lancer la commande `composer install` dans vote répertoire
++ Lancer la commande `npm install` dans votre répertoire
++ Lancer la commande `bower update` dans votre répertoire
++ Installer les SQL du dossier SQL
++ Copier `.env.example` et le renommer en `.env` et le paramétrer
++ Lancer la commande `php artisan key:generate`
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+#### Lancer l'environnement de test :
 
-## Contributing
++ Lancer la commande `php artisan serv`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+##### Générer la docmentation
 
-## Security Vulnerabilities
+Pour la document nous utilisons [apiDoc](https://github.com/apidoc/apidoc)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
++ Pour générer la documentation executer `apidoc -i app/ -o apidoc/`
 
-### License
+#### Environnement de production :
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
++ Créer un symlink vers le repertoire publique
+	+ Windows : `mklink /d "{/path/to/link-name}" "{/path/folder/linked}"`
+	+ Linux : `ln -s {/path/to/file-name} {link-name}`
+
+#### Dépendances :
+
++ Bootstrap : UI kit reponsive 
++ JQuery : Le javascript, mais en mieux.
+
+----
+
+## Laravel 5
+
+Laravel est le le framework le php le plus puissant du moment avec Symfony.
+Simple d'utilisation et efficace, ce framework répond a toutes nos attentes.
+La documentation est disponible [ici](http://laravel.com/docs/5.1).
+
+## Bower
+
+Bower permet de facilement installer des dépendances pour notre site web.
+Les packages sont disponible [ici](http://bower.io/search/)
+
++ Pour installer un package il suffit d'executer la commande `bower install [packagename] --save`
+
++ Pour récuper tout vos package après une nouvelle installation `bower install`
++ Pou mettre à jour `bower update`
+
+----
+
+### Astuces
+
++ [Github Markdown Editor](https://jbt.github.io/markdown-editor/)
