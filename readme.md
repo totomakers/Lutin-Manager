@@ -1,5 +1,4 @@
 # LutinManager : Logicel de gestion de Commande (ENI 2015)
----
 
 #### Prérequis :
 
@@ -13,9 +12,9 @@
 + Lancer la commande `composer install` dans vote répertoire
 + Lancer la commande `npm install` dans votre répertoire
 + Lancer la commande `bower update` dans votre répertoire
-+ Installer les SQL du dossier SQL
 + Copier `.env.example` et le renommer en `.env` et le paramétrer
 + Lancer la commande `php artisan key:generate`
++ Lancer la commande `php artisan migrate --force`
 
 #### Lancer l'environnement de test :
 
