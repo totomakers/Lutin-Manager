@@ -13,9 +13,14 @@ class CreateOrderRowTable extends Migration
     public function up()
     {
         Schema::create('order_row', function (Blueprint $table) {
-            $table->integer('order_id');
-            $table->integer('item_id');
+            $table->increments('id');
+            $table->integer('order_id')->unsigned();
+            $table->integer('item_id')->unsigned();
             $table->integer('quantity',false,true);
+
+            $table->foreign('order_id')->references('id')->on('order');
+            $table->foreign('item_id')->references('id')->on('item');
+            $table->unique(array('order_id','item_id'));
 
             //$table->timestamps();
         });
