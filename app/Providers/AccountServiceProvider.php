@@ -1,7 +1,7 @@
 <?php
 namespace App\Providers;
 
-use App\Models\Account;
+use App\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 
@@ -22,7 +22,7 @@ class AccountProvider implements UserProvider
      */
     public function retrieveById($identifier)
     {
-        return Account::find($identifier);
+        return User::find($identifier);
     }
 
     /**
@@ -34,13 +34,13 @@ class AccountProvider implements UserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
-        return Account::where('id = ? and remember_token = ?', $identifier, $token)->first();
+        return User::where('id = ? and remember_token = ?', $identifier, $token)->first();
     }
 
     /**
      * Update the "remember me" token for the given user in storage.
      *
-     * @param  App\Models\Auth\Account $user
+     * @param  \App\Models\User $user
      * @param  string  $token
      * @return void
      */
@@ -54,18 +54,18 @@ class AccountProvider implements UserProvider
      * Retrieve a user by the given credentials.
      *
      * @param  array  $credentials
-     * @return App\Models\Auth\Account|null
+     * @return \App\Models\Account|null
      */
     public function retrieveByCredentials(array $credentials)
     {
         $hashedPassword = $this->hashPassword($credentials['username'], $credentials['password']);
-        return Account::where('email', '=', $credentials['username'])->where('sha1_pass', '=', $hashedPassword)->first();
+        return User::where('email', '=', $credentials['username'])->where('sha1_pass', '=', $hashedPassword)->first();
     }
 
     /**
      * Validate a user against the given credentials.
      *
-     * @param  App\Models\Auth\Account $user
+     * @param  \App\Models\User $user
      * @param  array  $credentials
      * @return bool
      */
@@ -85,5 +85,4 @@ class AccountProvider implements UserProvider
     {
         return sha1(strtoupper($username).':'.$password);
     }
-}
 }
