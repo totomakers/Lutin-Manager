@@ -1,4 +1,4 @@
-# Evaluat0r : Logicel d'évaluation (ENI 2015)
+# LutinManager : Logicel de gestion de Commande (ENI 2015)
 ---
 
 #### Prérequis :

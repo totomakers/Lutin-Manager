@@ -1,0 +1,8 @@
+MySQL
+
+id  : lutinManager
+pwd : DQg9sx29
+
+id  : root
+pwd : Pu5qRk94dB2E
+
