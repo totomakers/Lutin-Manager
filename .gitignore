@@ -6,4 +6,6 @@ Homestead.json
 
 /public/bower/
 
+/.idea/
+
 /apidoc/
