@@ -60,13 +60,8 @@ Les packages sont disponible [ici](http://bower.io/search/)
 
 ## MySQL
 
-id  : lutinManager
-pwd : DQg9sx29
-
-id  : root
-pwd : Pu5qRk94dB2E
-
-
++ id  :  `lutinManager`
++ pwd : `DQg9sx29`
 
 ### Astuces
 
