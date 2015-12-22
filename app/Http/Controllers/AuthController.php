@@ -21,10 +21,6 @@ class AuthController extends Controller
     
     public function viewLogin()
     {
-        //Si déjà connecté redirection
-        if (Auth::check())
-            return redirect()->route('orders::viewAll');
-    
         return view('auth.login');
     }
     
@@ -37,21 +33,24 @@ class AuthController extends Controller
     //try to login with password and email
     public function login(Request $request)
     {
-       //default value
-       $error = false;
-       $message = '';
-       
-       //input file
-       $email = $request->input('email');
-       $password = $request->input('password');
-       $rememberMe = $request->input('rememberMe');
+        //default value
+        $error = false;
+        $message = '';
 
-       //try to login
-       if(!Auth::attempt(['username' => $email, 'password' => $password], $rememberMe))
+        //input file
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $rememberMe = $request->input('rememberMe');
+
+        //try to login
+        if(!Auth::attempt(['username' => $email, 'password' => $password], $rememberMe))
+        {
+            $error = true;
             $message = Lang::get('auth.loginFail');
-       else
-            $message = Lang::get('auth.loginSuccess');
-  
-        return redirect()->back()->with(['error' => $error, 'message' => $message]);
+            redirect()->back()->with(['error' => $error, 'messages' => [ $message ]]);
+        }
+
+        $message = Lang::get('auth.loginSuccess');
+        return redirect()->route('orders::viewAll')->with(['error' => $error, 'messages' => [ $message ]]);
     }
 }
