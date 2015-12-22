@@ -2,21 +2,21 @@
 @section('title', 'Connexion')
 
 @section('content')
-    <div class="container-fluid connection">
+    <div class="container-fluid connection animated fadeIn">
         <div class="row-fluid">
             <div class="col-xs-offset-4 col-xs-4">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Connexion</h4>
                     </div>
-                    <form>
+                    <form method="post" action="{{ route('auth::login') }}">
                         <div class="modal-body">
                             <div class="form-group">
                                 <label class="sr-only" for="Identifiant">Identifiant</label>
 
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                    <input type="text" class="form-control" id="Identifiant"
+                                    <input type="email" class="form-control" id="Identifiant"
                                            placeholder="Identifiant">
                                 </div>
                             </div>
@@ -25,8 +25,7 @@
 
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-lock"></i></div>
-                                    <input type="text" class="form-control" id="mdp"
-                                           placeholder="Mot de Passe">
+                                    <input type="password" class="form-control" id="mdp" placeholder="Mot de Passe">
                                 </div>
                             </div>
                             <div class="text-right">
@@ -38,9 +37,11 @@
                                 </div>
                             </div>
                         </div>
+                        {{ csrf_field() }}
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">S'authentifier</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">S'authentifier</button>
+                            </div>
                         </div>
                     </form>
                 </div>

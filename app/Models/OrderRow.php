@@ -1,12 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wbezou2015
- * Date: 21/12/2015
- * Time: 14:51
- */
-
-namespace app\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -10,6 +10,7 @@
     {{-- ================= --}}
     <link href="{{ URL::asset('bower/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('bower/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('bower/animate.css/animate.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('custom/css/superhero.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('bower/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('custom/css/style.css') }}" rel="stylesheet">
