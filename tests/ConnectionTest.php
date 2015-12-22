@@ -15,9 +15,9 @@ class ConnectionTest extends TestCase
         public function testUserLogin()
     {
         $this->visit('/doit')
-            ->type('Joel', 'Identifiant')
-            ->type('test','mdp')
-            ->press('Register')
-            ->see('/dashboard');
+            ->type('test@test.com', 'email')
+            ->type('test','password')
+            ->press('S\'authentifier')
+            ->see(' Nom d\'utilisateur ou Mot de passe invalide');
     }
 }
