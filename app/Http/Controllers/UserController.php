@@ -23,7 +23,7 @@ class UserController extends Controller
         $messages = \Session::get('messages');
         $error = \Session::get('error');
 
-        $users = User::where('active', 1);
+        $users = User::where('active', 1)->get();
 
         return view('users.viewAll', ['users' => $users,'messages' => $messages, 'error' => $error]);
     }
