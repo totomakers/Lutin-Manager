@@ -155,8 +155,8 @@ class UserController extends Controller
                 $user= new User();
                 
                 $user->name=$name;
-                $user->rank=$rank
-                $user->email=$email
+                $user->rank=$rank;
+                $user->email=$email;
                 $user->sha1_password=$password;
                 $user->active=1;
 
