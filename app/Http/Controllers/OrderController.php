@@ -11,22 +11,29 @@ use Carbon\Carbon;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\OrderRow;
-use App\Models\User;
+use App\Constants;
 
 
 class OrderController extends Controller
 {
+
+
     public function __construct() { }
 
     public function viewAll()
     {
-        return view('manager.orderList');
+        $error = Session::get( 'error' );
+        $messages = Session::get('messages');
+
+        $orders=Order::where('status','!=', 2);
+
+        return view('manager.orderList',['orders' => $orders,'error'=>$error,'messages'=>$messages]);
     }
 
-
-    const DEFAULT_USER_ID = 0;
     public function importFile(Request $request)
     {
+        $messages=[];
+
         //==============
         //Check
         //==============
@@ -34,14 +41,20 @@ class OrderController extends Controller
 
         if (!$request->hasFile($inputName)) 
         {
-            //ERROR
-            return;
+            $error=Constants::MSG_ERROR_CODE;
+            $message[]=Lang::get('orders.noFile');
+            return redirect()->route('orders::viewAll')
+                ->with('error',$error)
+                ->with('messages',$messages);
         }
 
         if (!$request->file($inputName)->isValid()) 
         {
-            //ERROR
-            return;
+            $error=Constants::MSG_ERROR_CODE;
+            $message[]=Lang::get('orders.invalidFile');
+            return redirect()->route('orders::viewAll')
+                ->with('error',$error)
+                ->with('messages',$messages);
         }
 
         //==============
@@ -68,7 +81,8 @@ class OrderController extends Controller
                 //order already exist
                 if(Order::find($orderNumber))
                 {
-                    //ERREUR
+                    $message[]=Lang::get('orders.alreadyExists',['id'=>$orderNumber]);
+                    $error=Constants::MSG_WARNING_CODE;
                     continue;
                 }
 
@@ -77,7 +91,7 @@ class OrderController extends Controller
                 $order->id = intval($orderNumber);
                 $order->name = $customerName;
                 $order->address = $adress;
-                $order->user_id = DEFAULT_USER_ID;
+                $order->user_id = Constants::DEFAULT_USER_ID;
                 $order->status = Order::WAITING;
 
                 //======================
@@ -89,7 +103,11 @@ class OrderController extends Controller
                 {
                     $item = trim(substr($value, 0, strpos($value, "(")));
                     if (strlen($item) <= 0)
+                    {
+                        $message[]=Lang::get('orders.hasNoProducts',['id'=>$orderNumber]);
+                        $error=Constants::MSG_WARNING_CODE;
                         continue;
+                    }
                     $quantity = rtrim(substr($value, strpos($value, "(") + 1), ")");
 
                     $row = new OrderRow();
@@ -104,7 +122,8 @@ class OrderController extends Controller
 
                 if(sizeof($orderRows) <= 0)
                 {
-                    //ERROR
+                    $error=Constants::MSG_WARNING_CODE;
+                    $message[]=Lang::get('orders.noOrdersInFile');
                     continue;
                 } 
 
@@ -115,7 +134,8 @@ class OrderController extends Controller
                 }
                 else
                 {
-                    //ERREUR
+                    $error=Constants::MSG_ERROR_CODE;
+                    $message[]=Lang::get('orders.saveError');
                 }
             }
 
@@ -123,7 +143,12 @@ class OrderController extends Controller
         }
         else
         {
-            //ERROR
+            $error=Constants::MSG_ERROR_CODE;
+            $message[]=Lang::get('orders.fileError');
         }
+
+        return redirect()->route('orders::viewAll')
+            ->with('error',$error)
+            ->with('messages',$messages);
     }
 }

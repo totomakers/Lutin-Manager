@@ -1,18 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrateur
- * Date: 21/12/2015
- * Time: 13:54
- */
-
-namespace app\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Auth\Authenticatable as Authenticatable;
 
-class User implements AuthenticatableContract
+class User extends Model implements AuthenticatableContract
 {
     use Authenticatable;
 
