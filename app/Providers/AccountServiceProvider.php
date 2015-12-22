@@ -72,7 +72,7 @@ class AccountServiceProvider implements UserProvider
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
         $hashedPassword = $this->hashPassword($credentials['username'], $credentials['password']);
-        return strtoupper($user->sha1_pass) === strtoupper($hashedPassword);
+        return $user->sha1_password == $hashedPassword;
     }
 
     /**
@@ -83,6 +83,6 @@ class AccountServiceProvider implements UserProvider
      */
     public function hashPassword($username, $password)
     {
-        return sha1(strtoupper($username).':'.$password);
+        return sha1($username.':'.$password);
     }
 }

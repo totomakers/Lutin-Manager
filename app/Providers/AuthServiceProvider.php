@@ -2,32 +2,30 @@
 
 namespace App\Providers;
 
-use App\Models\User;
-use App\Providers\AccountServiceProvider;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * Perform post-registration booting of services.
+     * The policy mappings for the application.
      *
-     * @return void
+     * @var array
      */
-    public function boot()
-    {
-        \Auth::extend('custom.auth',function()
-        {
-            return new AccountServiceProvider(new User);
-        });
-    }
+    protected $policies = [
+        'App\Model' => 'App\Policies\ModelPolicy',
+    ];
 
     /**
-     * Register bindings in the container.
+     * Register any application authentication / authorization services.
      *
+     * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
      * @return void
      */
-    public function register()
+    public function boot(GateContract $gate)
     {
+        parent::registerPolicies($gate);
+
         //
     }
 }
