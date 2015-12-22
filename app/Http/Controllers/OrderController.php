@@ -214,7 +214,25 @@ class OrderController extends Controller
             ->with('messages',$messages);
     }
 
-    public function validateOrder(Request $request, $id){
+    public function validateOrder(Request $request, $id){}
+    
+    public function deliveryNote(Request $request)
+    {   
+        $error = Constants::MSG_OK_CODE;
+        $messages = [];
 
+        //$order = $request->order;
+        $order = Order::find(2);
+        $order->status = Constants::ORDER_VALIDATE;
+        $order->date_validation = Carbon::now();
+        
+        if(!$order->save())
+        {
+            $messages[] = Lang::get('order.uniqueSaveError', ["id" => $order->id]);
+            $error = Constants::MSG_ERROR_CODE;
+            return redirect()->route('orders::viewAll')->with(['messages' => $messages, 'error' => $error]);
+        }
+        
+        return view('users.deliveryNote', ['order' => $order]);
     }
 }

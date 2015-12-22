@@ -47,7 +47,7 @@ class UserController extends Controller
     public function update($id, Request $request)
     {
         $error = Constants::MSG_OK_CODE;
-        $messages = array();
+        $messages = [];
         
         //rules to apply of each field
         $rulesUser = array(
@@ -104,7 +104,7 @@ class UserController extends Controller
     public function delete($id)
     {
         $error = Constants::MSG_OK_CODE;
-        $messages = array();
+        $messages = [];
         
         $user = User::find($id);
         if(!$user)
