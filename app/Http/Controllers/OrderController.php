@@ -22,14 +22,7 @@ class OrderController extends Controller
 
     public function viewAll()
     {
-        //$connectedUser=Auth::user();
-
-        $user=new User();
-        $user->id=2;
-        $user->name='Pere Joël';
-        $user->rank=Constants::RANK_ADMIN;
-        $connectedUser=$user;
-
+        $connectedUser=Auth::user();
 
         $error = \Session::get('error');
         $messages = \Session::get('messages');
@@ -41,9 +34,16 @@ class OrderController extends Controller
         }
         else
         {
-            $order=Order::where('status','=',Constants::ORDER_WAITING)->first();
-            $order->user=$connectedUser;
-            $order->save();
+            // on recherche si on a déjà une commande attribuée
+            $order=Order::where('user_id', $connectedUser->id)->Where('status',Constants::ORDER_IN_PROGRESS)->first();
+
+            // sinon on prend la première libre et on l'assigne
+            if ($order==null) {
+                $order = Order::where('status', '=', Constants::ORDER_WAITING)->first();
+                $order->user_id = $connectedUser->id;
+                $order->status=Constants::ORDER_IN_PROGRESS;
+                $order->save();
+            }
             return view('user.order',['order' => $order,'error'=>$error,'messages'=>$messages]);
         }
     }
