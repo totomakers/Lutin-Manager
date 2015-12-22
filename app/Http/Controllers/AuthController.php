@@ -52,6 +52,6 @@ class AuthController extends Controller
        else
             $message = Lang::get('auth.loginSuccess');
   
-        return view('auth.doIt', ['error' => $error , 'messages' => [ $message ] ]); //redirect me to the right route motherfuck'a
+        return redirect()->back()->with(['error' => $error, 'message' => $message]);
     }
 }
