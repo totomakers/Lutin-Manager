@@ -4,7 +4,7 @@
 @section('content')
 
     @extends('manager.menu')
-    <div class="container-fluid">
+    <div class="container-fluid animated fadeIn">
         <div class="row-fluid">
             <div class="row-fluid">
                 <div class="col-xs-offset-1 col-xs-10">
@@ -13,7 +13,8 @@
                         <tr class="text-center">
                             <th>Libellé</th>
                             <th>Poids</th>
-                            <th></th>
+                            <th class="text-right">Editer</th>
+                            <th class="text-right">Supprimer</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -22,13 +23,11 @@
                             <tr>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->weight }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#Modal_edit{{$item->id}}">
-                                        edit
-                                    </button>
-                                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#Modal_delete{{$item->id}}">
-                                        delete
-                                    </button>
+                                <td class="text-right">
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Editer"><i class="fa fa-edit fa-2x"></i></a>
+                                </td>
+                                <td class="text-right">
+                                    <a href="#" onclick="deleteItem({{$item->id}})" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="text-danger fa fa-trash fa-2x"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -39,46 +38,31 @@
         </div>
     </div>
 
-    @foreach($items as $item)
-        <div class="modal fade" id="Modal_edit{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Modifier article N°{{$item->id}}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post" action="#">
-                            Libellé: <input type="text" name="itemName" value="{{$item->name}}" /> <br />
-                            Poids: <input type="text" name="itemWeight" value="{{$item->weight}}" /> <br />
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-primary">Enregistrer changement</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+@endsection
 
-        <div class="modal fade" id="Modal_delete{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Supprimer Article N°{{$item->id}}</h4>
-                    </div>
-                    <div class="modal-body">
-                        Etes-vous sûr ?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
-                        <button type="button" class="btn btn-primary">Oui</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    @endforeach
-
+@section('js_page')
+    <script>
+        var deleteItem = function(id) {
+            swal({
+                        title: "Voulez-vous supprimer cet article ?",
+                        text: "Cet article ne pourras pas être récuperé êtes-vous sûr ?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Supprimer",
+                        cancelButtonText: "Annuler",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function(isConfirm)
+                    {
+                        if (isConfirm) {
+                            swal("Supprimé !", "Cet article a été supprimé", "success");
+                        }
+                        else {
+                            swal("Anulé", "L'article n'a pas été supprimé", "error");
+                        }
+                    });
+        }
+    </script>
 @endsection
