@@ -19,6 +19,7 @@ class CreateUserTable extends Migration
             $table->string('email');
             $table->rememberToken();
             $table->string('sha1_password');
+            $table->tinyInteger('active');
             //$table->timestamps();
         });
     }

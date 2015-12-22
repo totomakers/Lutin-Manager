@@ -16,6 +16,7 @@ class CreateItemTable extends Migration
             $table->increments('id');
             $table->string('name', 150);
             $table->integer('weight',false,true);
+            $table->tinyInteger('active');
             //$table->timestamps();
         });
     }
