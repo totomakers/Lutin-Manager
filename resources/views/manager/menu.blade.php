@@ -6,8 +6,8 @@
         </div>
         <div class="col-xs-offset-6 col-xs-2 text-center">
             <div class="users-info">
-                <h6>Bonjour Père Joël!</h6>
-                <button class="btn btn-default">Déconnexion</button>
+                <h6>Bonjour <span class="text-primary">{{ Auth::user()->name }}</span></h6>
+                <a href="{{ URL::route('auth::logout') }}" class="btn btn-default" role="button">Déconnection</a>
             </div>
         </div>
 

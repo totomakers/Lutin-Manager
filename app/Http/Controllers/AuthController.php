@@ -21,12 +21,17 @@ class AuthController extends Controller
     
     public function viewLogin()
     {
+        //Si déjà connecté redirection
+        if (Auth::check())
+            return redirect()->route('orders::viewAll');
+    
         return view('auth.login');
     }
     
     public function logout()
     {
         Auth::logout();
+        return redirect()->route('auth::viewLogin');
     }
     
     //try to login with password and email
@@ -47,6 +52,6 @@ class AuthController extends Controller
        else
             $message = Lang::get('auth.loginSuccess');
   
-        return view('auth.doIt', ['error' => $error , 'messages' => [ $message ] ]); //redirect me to the right route motherfuck'a
+        return redirect()->back()->with(['error' => $error, 'message' => $message]);
     }
 }
