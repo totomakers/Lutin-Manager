@@ -22,13 +22,23 @@ class OrderController extends Controller
 
     public function viewAll()
     {
+        $connectedUser=Auth::user();
+
         $error = \Session::get('error');
         $messages = \Session::get('messages');
 
-        $orders=Order::where('status','!=', Constants::ORDER_VALIDATE)->get();
-        //$orders=Order::all();
-
-        return view('manager.orderList',['orders' => $orders,'error'=>$error,'messages'=>$messages]);
+        if ($connectedUser->rank==Constants::RANK_ADMIN)
+        {
+            $orders=Order::where('status','!=', Constants::ORDER_VALIDATE)->get();
+            return view('manager.orderList',['orders' => $orders,'error'=>$error,'messages'=>$messages]);
+        }
+        else
+        {
+            $order=Order::where('status','=',Constants::ORDER_WAITING)->first();
+            $order->user=$connectedUser;
+            $order->save();
+            return view('user.order',['order' => $order,'error'=>$error,'messages'=>$messages]);
+        }
     }
 
     public function importFile(Request $request)
@@ -40,6 +50,7 @@ class OrderController extends Controller
         //==============
         $inputName = 'csv_file';
 
+
         if (!$request->hasFile($inputName))
         {
             $error=Constants::MSG_ERROR_CODE;
@@ -48,6 +59,7 @@ class OrderController extends Controller
                 ->with('error',$error)
                 ->with('messages',$messages);
         }
+
 
         if (!$request->file($inputName)->isValid())
         {
@@ -152,4 +164,6 @@ class OrderController extends Controller
             ->with('error',$error)
             ->with('messages',$messages);
     }
+
+
 }

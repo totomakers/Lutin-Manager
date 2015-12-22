@@ -31,7 +31,7 @@
                         <td>{{ $order->date }}</td>
                         <td>{{ $order->name }}</td>
                         <td>{{ $order->address }}</td>
-                        <td></td>
+                        <td>{{ $order->user->name }}</td>
                         </tr>
                     @endforeach
                     <tr>
