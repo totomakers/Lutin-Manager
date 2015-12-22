@@ -12,6 +12,7 @@ use App\Models\Item;
 use App\Models\Order;
 use App\Models\OrderRow;
 use App\Models\User;
+use App\Constans;
 
 
 class UserController extends Controller
@@ -30,7 +31,7 @@ class UserController extends Controller
 
     public function update($id, Request $request)
     {
-        $error=false;
+        $error = Constants::MSG_OK_CODE;
         $messages = array();
         
         //rules to apply of each field
@@ -48,7 +49,7 @@ class UserController extends Controller
             {
                 $messages[] = Lang::get('validator.global', ["name" => $key]);
             }
-            $error=true;
+            $error=Constants::MSG_ERROR_CODE;
         }
         else
         {
@@ -65,7 +66,7 @@ class UserController extends Controller
             if($user==null)
             {
                 $messages[] = Lang::get('user.notFound',["username" => $email]);
-                $error=true;
+                $error = Constants::MSG_ERROR_CODE;
             }
             else
             {
@@ -75,6 +76,7 @@ class UserController extends Controller
                 $user->sha1_password=$password;
 
                 $user->save();
+                $messages[] = Lang::get('user.updateOk');
             }
         }
         return redirect()->route('user::viewAll')
@@ -84,7 +86,7 @@ class UserController extends Controller
     
     public function delete($id)
     {
-        $error=false;
+        $error = Constants::MSG_OK_CODE;
         $messages = array();
         
         //rules to apply of each field
@@ -98,7 +100,7 @@ class UserController extends Controller
             {
                 $messages[] = Lang::get('validator.global', ["name" => $key]);
             }
-            $error=true;
+            $error=Constants::MSG_ERROR_CODE;
         }
         else
         {
@@ -108,17 +110,18 @@ class UserController extends Controller
             if($user==null)
             {
                 $messages[] = Lang::get('user.notFound',["username" => $email]);
-                $error=true;
+                $error=Constants::MSG_ERROR_CODE;
             }
             elseif ($user->active==0;) {
                 $messages[] = Lang::get('user.notActive',["username" => $email]);
-                $error=true;
+                $error=Constants::MSG_ERROR_CODE;
             }
             else
             {
                 $user->active=0;
 
                 $user->save();
+                $messages[] = Lang::get('user.deleteOk',["username" => $email]);
             }
         }
         return redirect()->route('user::viewAll')
@@ -128,7 +131,7 @@ class UserController extends Controller
     
     public function create(Request $request)
     {
-        $error=false;
+        $error = Constants::MSG_OK_CODE;
         $messages = array();
         
         //rules to apply of each field
@@ -146,7 +149,7 @@ class UserController extends Controller
             {
                 $messages[] = Lang::get('validator.global', ["name" => $key]);
             }
-            $error=true;
+            $error=Constants::MSG_ERROR_CODE;
         }
         else
         {
@@ -155,24 +158,31 @@ class UserController extends Controller
             $rank=Request::input('rank');
             $email=Request::input('email');
             $password=Request::input('password');
+                
+            $user=User::find($id);
+            if($user!=null)
+            {
+                $messages[] = Lang::get('user.alreadyExist',["username" => $user->email]);
+                $error=Constants::MSG_ERROR_CODE;
+            }
+            else{
+                $provider = new AccountProvider();
+                $password = $provider->hashPassword($email, $password);
 
-            $provider = new AccountProvider();
-            $password = $provider->hashPassword($email, $password);
+                $user= new User();
+                
+                $user->name=$name;
+                $user->rank=$rank
+                $user->email=$email
+                $user->sha1_password=$password;
+                $user->active=1;
 
-            $user= new User();
-            
-            $user->name=$name;
-            $user->rank=$rank
-            $user->email=$email
-            $user->sha1_password=$password;
-            $user->active=1;
-
-            $user->save();
-            
+                $user->save();
+                $messages[] = Lang::get('user.createOk',["username" => $email]);
+            }
         }
         return redirect()->route('user::viewAll')
             ->with('messages'=>$messages)
             ->with('error'=>$error);
-    }
     }
 }
