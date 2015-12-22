@@ -1,13 +1,14 @@
 <div class="container-fluid">
     <div class="row-fluid">
-        <div class="col-xs-4">
+        <div class="col-xs-10">
+            <img class="img-responsive pull-left" src="{{ URL::asset('custom/img/logo.png') }}" alt="Logo" id="logo"/>
             <h1>Lutin Management</h1>
             <h6><em>Et Joyeux Noël à  tous!</em></h6>
         </div>
-        <div class="col-xs-offset-6 col-xs-2 text-center">
-            <div class="users-info">
+        <div class="col-xs-2 text-center">
+            <div class="well well-sm">
                 <h6>Bonjour <span class="text-primary">{{ Auth::user()->name }}</span></h6>
-                <a href="{{ URL::route('auth::logout') }}" class="btn btn-default" role="button">Déconnection</a>
+                <a href="{{ URL::route('auth::logout') }}" class="btn btn-danger" role="button"><i class="fa fa-power-off"></i></a>
             </div>
         </div>
 
@@ -28,10 +29,19 @@
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li><a href="#">Liste des Commandes</a></li>
-                            <li><a href="#">Gestion des Articles</a></li>
-                            <li><a href="#">Gestion des Employés</a></li>
-                            <li><a href="#">Statistiques</a></li>
+                            <li @if(Route::getCurrentRoute()->getName() == 'orders::viewAll') class="active" @endif>
+                                <a href="{{ URL::route('orders::viewAll') }}">Liste des Commandes</a>
+                            </li>
+                            <li @if(Route::getCurrentRoute()->getName() == 'items::viewAll') class="active" @endif>
+                                <a href="{{ URL::route('items::viewAll') }}">Gestion des Articles</a>
+                            </li>
+                            <li @if(Route::getCurrentRoute()->getName() == 'users::viewAll') class="active" @endif>
+                                <a href="{{ URL::route('users::viewAll') }}">Gestion des Employés</a>
+                            </li>
+                           {{-- <li @if(Route::getCurrentRoute()->getName() == '') class="active" @endif>
+                                <a href="{{ URL::route('') }}">Statistiques</a>
+                            </li>
+                            --}}
                         </ul>
                     </div>
                 </div>
