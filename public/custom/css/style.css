@@ -7,3 +7,18 @@
 .connection{
     margin-top: 15%;
 }
+
+.users-info{
+    border:#333 solid 1px;
+    margin: 10px 0;
+    padding : 10px;
+    background-color: #3D5062;
+}
+
+.status-progress{
+    color: #ff770b;
+}
+
+.status-waiting{
+    color: #ff1d06;
+}

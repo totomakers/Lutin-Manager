@@ -17,7 +17,13 @@ use App\Models\User;
 class OrderController extends Controller
 {
     public function __construct() { }
-    
+
+    public function viewAll()
+    {
+        return view('manager.orderList');
+    }
+
+
     const DEFAULT_USER_ID = 0;
     public function importFile(Request $request)
     {

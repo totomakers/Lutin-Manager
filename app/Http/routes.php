@@ -19,7 +19,7 @@ Route::get('/', ['uses'=>'OrderController@importFile']);
 
 Route::group(['as' => 'orders', 'prefix' => 'orders'], function () //plurial is always better for routes
 {
-    Route::get('/',                     ['as' => '::viewAll', 'middleware' => 'auth.rank:0', 'uses' => 'OrderController@viewAll']);
+    Route::get('/',                     ['as' => '::viewAll', /*'middleware' => 'auth.rank:0',*/ 'uses' => 'OrderController@viewAll']);
     Route::post('/{id}/validate',       ['as' => '::validate', 'middleware' => 'auth.rank:0', 'uses' => 'OrderController@validate'])->where('id', '[0-9]+');
 });
 
