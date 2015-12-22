@@ -4,7 +4,7 @@
 @section('content')
 
     @extends('manager.menu')
-    <div class="container-fluid">
+    <div class="container-fluid animated fadeIn">
         <div class="row-fluid">
             <div class="col-xs-12 text-center">
                 <form method="post" action="{{ route('orders::import') }}">
