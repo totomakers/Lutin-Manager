@@ -48,10 +48,13 @@ class AuthController extends Controller
 
        //try to login
        if(!Auth::attempt(['username' => $email, 'password' => $password], $rememberMe))
+       {
+            $error = true;
             $message = Lang::get('auth.loginFail');
+       }
        else
             $message = Lang::get('auth.loginSuccess');
   
-        return redirect()->back()->with(['error' => $error, 'message' => $message]);
+        return redirect()->back()->with('error', $error)->with('messages', [ $message ]);
     }
 }
