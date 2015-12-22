@@ -44,7 +44,7 @@ class OrderController extends Controller
                 $order->status=Constants::ORDER_IN_PROGRESS;
                 $order->save();
             }
-            return view('user.order',['order' => $order,'error'=>$error,'messages'=>$messages]);
+            return view('users.order',['order' => $order,'error'=>$error,'messages'=>$messages]);
         }
     }
 

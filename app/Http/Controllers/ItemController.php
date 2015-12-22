@@ -6,6 +6,7 @@ use App\Constants;
 use Validator;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Auth;
 
 
 use App\Models\Item;
@@ -16,10 +17,10 @@ class ItemController extends Controller
 
     public function viewAll()
     {
-        $error = Session::get('error');
-        $messages = Session::get('messages');
+        $error = \Session::get('error');
+        $messages = \Session::get('messages');
 
-        $items=Item::where('active', 1);
+        $items=Item::where('active',1)->get();
 
         return view('items.viewAll',['items' => $items,'error' => $error,'messages'=>$messages]);
     }
