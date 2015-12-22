@@ -75,6 +75,7 @@ class OrderController extends Controller
             return redirect()->route('orders::viewAll')
                 ->with('error',$error)
                 ->with('messages',$messages);
+
         }
 
         //==============
@@ -82,7 +83,11 @@ class OrderController extends Controller
         //==============
 
         $file = $request->file($inputName);
-        if (($handle = fopen($file->path, "r")) !== false)
+
+        var_dump($file);
+
+        //if (($handle = fopen($file->path, "r")) !== false)
+        if (true)
         {
             $i = 0;
             setlocale(LC_ALL, 'fr_FR.UTF-8');

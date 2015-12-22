@@ -7,10 +7,10 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="col-xs-12 text-center">
-                <form method="post" action="{{ route('orders::import') }}">
+                <form method="post" action="{{ route('orders::import') }}" enctype="multipart/form-data">
                     {{csrf_field()}}
                         <span class="btn btn-default btn-file">
-                            Fichier de Commandes <input type="file"/>
+                            Fichier de Commandes <input type="file" name="csv_file"/>
                         </span>
                         <input type="submit" class="btn btn-success" value="Importer"/>
                 </form>
