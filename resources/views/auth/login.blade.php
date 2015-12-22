@@ -9,6 +9,13 @@
                     <div class="modal-header">
                         <h4 class="modal-title">Connexion</h4>
                     </div>
+                    @if (Session::get('error') == true)
+                        <div class="alert alert-danger" role="alert">
+                        @foreach (Session::get('messages') as $message)
+                            {{ $message }}</br>
+                        @endforeach
+                        </div>
+                    @endif
                     <form method="post" action="{{ route('auth::login') }}">
                         <div class="modal-body">
                             <div class="form-group">
