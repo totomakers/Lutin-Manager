@@ -16,5 +16,10 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function __construct() { }
+    public function __construct() {}
+    
+    public function viewLogin()
+    {
+        return view('auth.login');
+    }
 }
