@@ -3,7 +3,7 @@
 
 @section('content')
 
-    @extends('user.header')
+    @extends('users.header')
     <div class="container-fluid">
         <div class="row-fluid">
             <div class=" col-xs-2">
