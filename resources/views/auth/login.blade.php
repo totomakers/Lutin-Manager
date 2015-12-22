@@ -13,11 +13,9 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label class="sr-only" for="Identifiant">Identifiant</label>
-
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                    <input type="email" class="form-control" id="Identifiant" name="email"
-                                           placeholder="Identifiant">
+                                    <input type="email" class="form-control" id="Identifiant" name="email" placeholder="Identifiant">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -30,7 +28,7 @@
                             </div>
                             <div class="text-right">
                                 <div class="checkbox">
-                                    <input type="checkbox" id="rememberMe" class="checkbox-primary text-center" name="remeberMe">
+                                    <input type="checkbox" id="rememberMe" class="checkbox-primary text-center" name="rememberMe">
                                     <label for="checkbox1">
                                         Se souvenir de moi
                                     </label>
