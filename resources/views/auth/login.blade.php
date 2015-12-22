@@ -2,5 +2,50 @@
 @section('title', 'Connexion')
 
 @section('content')
+    <div class="container-fluid connection">
+        <div class="row-fluid">
+            <div class="col-xs-offset-4 col-xs-4">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Connexion</h4>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="sr-only" for="Identifiant">Identifiant</label>
+
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    <input type="text" class="form-control" id="Identifiant"
+                                           placeholder="Identifiant">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="mdp">Mot de Passe</label>
+
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-lock"></i></div>
+                                    <input type="text" class="form-control" id="mdp"
+                                           placeholder="Mot de Passe">
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="checkbox">
+                                    <input type="checkbox" id="rememberMe" class="checkbox-primary text-center">
+                                    <label for="checkbox1">
+                                        Se souvenir de moi
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">S'authentifier</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection

@@ -1,0 +1,9 @@
+.v-center {
+    display: inline-block;
+    vertical-align: middle !important;
+    float: none;
+}
+
+.connection{
+    margin-top: 15%;
+}
