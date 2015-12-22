@@ -4,14 +4,21 @@
     float: none;
 }
 
+#logo{
+    margin-top: 17px;
+    margin-right: 10px;
+}
+
 .connection{
     margin-top: 15%;
 }
 
+em{
+    color:#ffd700;
+}
+
 .users-info{
-    border:#333 solid 1px;
-    margin: 10px 0;
-    padding : 10px;
+
     background-color: #3D5062;
 }
 
