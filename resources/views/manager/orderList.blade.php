@@ -28,16 +28,24 @@
                             <tr>
                                 @if ($order->status==\App\Constants::ORDER_WAITING)
                                     <td class="status-waiting text-center">
-                                        <i class="fa fa-square" data-toggle="tooltip" data-placement="left" title="Tooltip on left"></i>
+                                        <i class="fa fa-square" data-toggle="tooltip" data-placement="left"
+                                           title="En Attente"></i>
                                     </td>
                                 @else
-                                    <td class="status-progress text-center"><i class="fa fa-square"></i></td>
+                                    <td class="status-progress text-center">
+                                        <i class="fa fa-square" data-toggle="tooltip" data-placement="left"
+                                           title="En Cours"></i>
+                                    </td>
                                 @endif
                                 <td>{{ $order->id }}</td>
                                 <td>{{ (new Carbon($order->date))->formatLocalized('%d %B %Y') }}</td>
                                 <td>{{ $order->name }}</td>
                                 <td>{{ $order->address }}</td>
-                                <td>{{ $order->user->name }}</td>
+                                <td>
+                                    @if ($order->status==\App\Constants::ORDER_IN_PROGRESS)
+                                        {{ $order->user->name }}
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
