@@ -14,4 +14,9 @@ class User extends Model implements AuthenticatableContract
     protected $table = 'user';
 
     protected $hidden = ['sha1_password', 'remember_token']; //exclude from the api
+
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order', 'user_id');
+    }
 }
