@@ -29,7 +29,7 @@ Route::group(['as' => 'orders', 'prefix' => 'orders'], function () //plurial is 
 Route::group(['as' => 'items', 'prefix' => 'items'], function()
 {
     Route::get('/',                     ['as' => '::viewAll', 'middleware' => 'auth.rank:1', 'uses' => 'ItemController@viewAll']);
-    Route::put('/{id}',                 ['as' => '::update',  'middleware' => 'auth.rank:1', 'uses' => 'ItemController@update'])->where('id', '[0-9]+');
+    Route::put('/',                     ['as' => '::update',  'middleware' => 'auth.rank:1', 'uses' => 'ItemController@update']);
     Route::delete('/{id}',              ['as' => '::delete',  'middleware' => 'auth.rank:1', 'uses' => 'ItemController@delete'])->where('id', '[0-9]+');
     Route::post('/',                    ['as' => '::create',  'middleware' => 'auth.rank:1', 'uses' => 'ItemController@create']);
 });
