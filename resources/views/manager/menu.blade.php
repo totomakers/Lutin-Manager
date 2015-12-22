@@ -7,7 +7,7 @@
         <div class="col-xs-offset-6 col-xs-2 text-center">
             <div class="users-info">
                 <h6>Bonjour Père Joël!</h6>
-                <button class="btn btn-default">Déconnexion</button>
+                <a href="{{ URL::route('auth::logout') }}" class="btn btn-default" role="button">Déconnection</a>
             </div>
         </div>
 
