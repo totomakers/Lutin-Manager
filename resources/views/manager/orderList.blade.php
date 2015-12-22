@@ -37,7 +37,7 @@
                                 <td>{{ (new Carbon($order->date))->formatLocalized('%d %B %Y') }}</td>
                                 <td>{{ $order->name }}</td>
                                 <td>{{ $order->address }}</td>
-                                <td></td>
+                                <td>{{ $order->user->name }}</td>
                             </tr>
                         @endforeach
                         </tbody>
