@@ -19,6 +19,7 @@ class CreateOrderTable extends Migration
             $table->string('address');
             $table->integer('user_id')->unsigned();
             $table->integer('status');
+            $table->datetime('date_validation');
 
             $table->foreign('user_id')->references('id')->on('user');
             //$table->timestamps();
