@@ -47,7 +47,7 @@ class AuthController extends Controller
         {
             $error = true;
             $message = Lang::get('auth.loginFail');
-            redirect()->back()->with(['error' => $error, 'messages' => [ $message ]]);
+            return redirect()->back()->with(['error' => $error, 'messages' => [ $message ]]);
         }
 
         $message = Lang::get('auth.loginSuccess');

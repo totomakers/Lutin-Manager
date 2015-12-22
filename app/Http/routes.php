@@ -61,6 +61,6 @@ Route::group(['as' => 'auth', 'prefix' => 'auth'], function()
 
 Route::any('{all}', function($uri)
 {
-    return Redirect::to('auth')->with(['error' => true , 'messages' => [ 'Ooops ! Cette page a Ã©tÃ© mangÃ© par le Grinch !' ]]);
+    return Redirect::to('auth')->with(['error' => true , 'messages' => [ 'Ooops ! Cette page aété mangé par le Grinch !' ]]);
     
 })->where('all', '.*');
