@@ -24,9 +24,9 @@ class UserController extends Controller
         $messages = Seesion::get('messages');
         $error = Seesion::get('error');
 
-        $users==User::where('active', 1);
+        $users=User::where('active', 1);
 
-        return view('user.viewAll', ["messages" => $messages, "error" => $error]);
+        return view('user.viewAll', ['users' => $users,'messages' => $messages, 'error' => $error]);
     }
 
     public function update($id, Request $request)
@@ -71,8 +71,8 @@ class UserController extends Controller
             else
             {
                 $user->name=$name;
-                $user->rank=$rank
-                $user->email=$email
+                $user->rank=$rank;
+                $user->email=$email;
                 $user->sha1_password=$password;
 
                 $user->save();
@@ -80,8 +80,8 @@ class UserController extends Controller
             }
         }
         return redirect()->route('user::viewAll')
-            ->with('messages'=>$messages)
-            ->with('error'=>$error);
+            ->with('messages',$messages)
+            ->with('error',$error);
     }
     
     public function delete($id)

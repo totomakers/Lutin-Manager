@@ -84,10 +84,7 @@ class OrderController extends Controller
 
         $file = $request->file($inputName);
 
-        var_dump($file);
-
-        //if (($handle = fopen($file->path, "r")) !== false)
-        if (true)
+        if (($handle = fopen($file, "r")) !== false)
         {
             $i = 0;
             setlocale(LC_ALL, 'fr_FR.UTF-8');
