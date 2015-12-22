@@ -5,5 +5,6 @@ return [
     "notCreated" => "Impossible de créer l'article",
     "created"   => "Article crée",
     "modified"  => "Article modifié",
-    "deleted"   => "Article supprimé"
+    "deleted"   => "Article supprimé",
+    "invalidForm" => "Données non valides"
     ];

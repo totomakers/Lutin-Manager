@@ -27,7 +27,7 @@ class ItemController extends Controller
     public function create(Request $request)
     {
         $messages=[];
-        //rules to apply of each field
+        //rules to apply on each field
         $rulesItem = array(
             'name'             => 'string|required',
             'weight'            => 'integer|required|min:0',
@@ -35,7 +35,7 @@ class ItemController extends Controller
 
         $validatorItem = Validator::make($request->all(), $rulesItem);
         if ($validatorItem->fails()) {
-            $messages = $validatorItem->messages()->getMessages();
+            $messages = Lang::get('items.invalidFOrm');
             $error=Constants::MSG_ERROR_CODE;
         }
         else {
