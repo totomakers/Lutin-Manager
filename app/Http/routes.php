@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('/', ['uses'=>'OrderController@importFile']);
 
 //==============
 //Orders routing
@@ -55,3 +54,11 @@ Route::group(['as' => 'auth', 'prefix' => 'auth'], function()
     Route::get('/logout',               ['as' => '::logout',    'uses' => 'AuthController@logout']);
     Route::post('/login',               ['as' => '::login',     'uses' => 'AuthController@login']);
 });
+
+//============
+//Keep me last
+
+Route::any('{all}', function($uri)
+{
+    return Redirect::to('auth');
+})->where('all', '.*');

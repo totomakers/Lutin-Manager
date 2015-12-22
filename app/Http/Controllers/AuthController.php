@@ -21,12 +21,17 @@ class AuthController extends Controller
     
     public function viewLogin()
     {
+        //Si déjà connecté redirection
+        if (Auth::check())
+            return redirect()->route('orders::viewAll');
+    
         return view('auth.login');
     }
     
     public function logout()
     {
         Auth::logout();
+        return redirect()->route('auth::viewLogin');
     }
     
     //try to login with password and email
