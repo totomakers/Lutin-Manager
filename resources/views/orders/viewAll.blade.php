@@ -3,6 +3,6 @@
 
 @section('content')
 
-    <!-- liste donnée sous la forme $items, avec variable bool $error et $messages -->
+        <!-- liste donnée sous la forme $orders, avec variable bool $error et $messages -->
 
 @endsection
