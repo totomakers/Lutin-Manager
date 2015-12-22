@@ -53,3 +53,11 @@ em{
     cursor: inherit;
     display: block;
 }
+
+
+/* Tableau */
+
+.tab-head >.tab-tr{
+    font-weight: bold;
+    font-size: 1.5em;
+}
