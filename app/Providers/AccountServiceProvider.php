@@ -81,7 +81,7 @@ class AccountProvider implements UserProvider
      * @param  string $password password not encrypted
      * @return string           hashed password
      */
-    private function hashPassword($username, $password)
+    public function hashPassword($username, $password)
     {
         return sha1(strtoupper($username).':'.$password);
     }
