@@ -14,9 +14,6 @@ abstract class Constants
     const ORDER_IN_PROGRESS = 1;
     const ORDER_VALIDATE = 2;
 
-    const FILE_UPLOAD_DIR = '/uploads/';
-    const FILE_EXT = '.csv';
-
     const RANK_USER=0;
     const RANK_ADMIN=1;
 

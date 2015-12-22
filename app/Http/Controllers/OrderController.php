@@ -11,18 +11,25 @@ use Carbon\Carbon;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\OrderRow;
+use App\Models\User;
 use App\Constants;
+use Auth;
 
 
 class OrderController extends Controller
 {
-
-
     public function __construct() { }
 
     public function viewAll()
     {
-        $connectedUser=Auth::user();
+        //$connectedUser=Auth::user();
+
+        $user=new User();
+        $user->id=2;
+        $user->name='Pere Joël';
+        $user->rank=Constants::RANK_ADMIN;
+        $connectedUser=$user;
+
 
         $error = \Session::get('error');
         $messages = \Session::get('messages');
