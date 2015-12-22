@@ -2,7 +2,7 @@
     <div class="row-fluid">
         <div class="col-xs-4">
             <h1>Lutin Management</h1>
-            <h6><em>Et Joyeux Noël à tous!</em></h6>
+            <h6><em>Et Joyeux Noël à  tous!</em></h6>
         </div>
         <div class="col-xs-offset-6 col-xs-2 text-center">
             <div class="users-info">

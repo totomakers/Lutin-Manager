@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -8,7 +8,7 @@
     {{-- ================= --}}
     {{-- add your css here --}}
     {{-- ================= --}}
-    <link href="{{ URL::asset('bower/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    {{--<link href="{{ URL::asset('bower/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">--}}
     <link href="{{ URL::asset('bower/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('bower/animate.css/animate.min.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('custom/css/superhero.min.css') }}" rel="stylesheet">
@@ -24,6 +24,7 @@
 {{-- ================= --}}
 <script type="text/javascript" src="{{ URL::asset('bower/jquery/dist/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('custom/js/app.js') }}"></script>
 @yield('js_page') {{-- additional js --}}
 </body>
 </html>
