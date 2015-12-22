@@ -12,12 +12,51 @@ class ConnectionTest extends TestCase
      * @return void
      */
 
-        public function testUserLogin()
+    public function testEmailvide()
     {
-        $this->visit('/doit')
-            ->type('test@test.com', 'email')
+        $this->visit('/auth')
+            ->type('', 'email')
             ->type('test','password')
             ->press('S\'authentifier')
             ->see(' Nom d\'utilisateur ou Mot de passe invalide');
     }
+
+    public function testMdpVide()
+    {
+        $this->visit('/auth')
+            ->type('jo@el.com', 'email')
+            ->type('','password')
+            ->press('S\'authentifier')
+            ->see(' Nom d\'utilisateur ou Mot de passe invalide');
+    }
+
+    public function testLoginMdpVide()
+    {
+        $this->visit('/auth')
+            ->type('', 'email')
+            ->type('','password')
+            ->press('S\'authentifier')
+            ->see(' Nom d\'utilisateur ou Mot de passe invalide');
+    }
+
+    public function testManagerOK()
+    {
+        $this->visit('/auth')
+            ->type('joel.pere@nomail.com', 'email')
+            ->type('joel','password')
+            ->press('S\'authentifier')
+            ->seePageIs('/orders');
+    }
+
+    public function testEmployeOK()
+    {
+        $this->visit('/auth')
+            ->type('james.lutin@nomail.com', 'email')
+            ->type('james','password')
+            ->press('S\'authentifier')
+            ->seePageIs('/orders');
+    }
+
+
+
 }
