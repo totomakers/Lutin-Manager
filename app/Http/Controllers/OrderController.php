@@ -27,7 +27,7 @@ class OrderController extends Controller
 
         $orders=Order::where('status','!=', 2);
 
-        return view('orders.viewAll',['orders' => $orders,'error'=>$error,'messages'=>$messages]);
+        return view('manager.orderList',['orders' => $orders,'error'=>$error,'messages'=>$messages]);
     }
 
     public function importFile(Request $request)
