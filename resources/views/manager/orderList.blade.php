@@ -7,11 +7,12 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="col-xs-12 text-center">
-                <form method="post" action="{{ route('auth::login') }}">
+                <form method="post" action="{{ route('orders::import') }}">
+                    {{csrf_field()}}
                         <span class="btn btn-default btn-file">
                             Fichier de Commandes <input type="file"/>
                         </span>
-                        <input type="submit" class="btn btn-sucess" value="Importer"/>
+                        <input type="submit" class="btn btn-success" value="Importer"/>
                 </form>
             </div>
             <div class="row-fluid">
