@@ -16,7 +16,7 @@
 
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                    <input type="email" class="form-control" id="Identifiant"
+                                    <input type="email" class="form-control" id="Identifiant" name="email"
                                            placeholder="Identifiant">
                                 </div>
                             </div>
@@ -25,12 +25,12 @@
 
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-lock"></i></div>
-                                    <input type="password" class="form-control" id="mdp" placeholder="Mot de Passe">
+                                    <input type="password" class="form-control" id="pwd" name="password" placeholder="Mot de Passe">
                                 </div>
                             </div>
                             <div class="text-right">
                                 <div class="checkbox">
-                                    <input type="checkbox" id="rememberMe" class="checkbox-primary text-center">
+                                    <input type="checkbox" id="rememberMe" class="checkbox-primary text-center" name="remeberMe">
                                     <label for="checkbox1">
                                         Se souvenir de moi
                                     </label>
