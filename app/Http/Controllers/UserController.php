@@ -89,44 +89,27 @@ class UserController extends Controller
         $error = Constants::MSG_OK_CODE;
         $messages = array();
         
-        //rules to apply of each field
-        $rulesUser = array(
-            'id'                => 'integer|required',
-        );
-
-        $validatorUser = Validator::make($request->all(), $rulesUser);
-        if ($validatorUser->fails()) {
-            foreach($validatorUser->messages()->getMessages() as $key => $value)
-            {
-                $messages[] = Lang::get('validator.global', ["name" => $key]);
-            }
+        $user=User::find($id);
+        if($user==null)
+        {
+            $messages[] = Lang::get('user.notFound',["username" => $id]);
+            $error=Constants::MSG_ERROR_CODE;
+        }
+        elseif ($user->active==0;) {
+            $messages[] = Lang::get('user.notActive',["username" => $id]);
             $error=Constants::MSG_ERROR_CODE;
         }
         else
         {
-            $id=Request::input('id');
-            
-            $user=User::find($id);
-            if($user==null)
-            {
-                $messages[] = Lang::get('user.notFound',["username" => $email]);
-                $error=Constants::MSG_ERROR_CODE;
-            }
-            elseif ($user->active==0;) {
-                $messages[] = Lang::get('user.notActive',["username" => $email]);
-                $error=Constants::MSG_ERROR_CODE;
-            }
-            else
-            {
-                $user->active=0;
+            $user->active=0;
 
-                $user->save();
-                $messages[] = Lang::get('user.deleteOk',["username" => $email]);
-            }
+            $user->save();
+            $messages[] = Lang::get('user.deleteOk',["username" => $email]);
         }
+        
         return redirect()->route('user::viewAll')
-            ->with('messages'=>$messages)
-            ->with('error'=>$error);
+            ->with('messages',$messages)
+            ->with('error',$error);
     }
     
     public function create(Request $request)
@@ -182,7 +165,7 @@ class UserController extends Controller
             }
         }
         return redirect()->route('user::viewAll')
-            ->with('messages'=>$messages)
-            ->with('error'=>$error);
+            ->with('messages',$messages)
+            ->with('error',$error);
     }
 }
