@@ -23,8 +23,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+
+                    @foreach($orders as $order)
+                        <tr>
                         <td class="status-progress text-center">&#8718;</td>
+                        <td>{{ $order->id }}</td>
+                        <td>{{ $order->date }}</td>
+                        <td>{{ $order->name }}</td>
+                        <td>{{ $order->address }}</td>
+                        <td></td>
+                        </tr>
+                    @endforeach
+                    <tr>
+
                         <td>Column content</td>
                         <td>Column content</td>
                         <td>Column content</td>

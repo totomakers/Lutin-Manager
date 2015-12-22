@@ -22,10 +22,11 @@ class OrderController extends Controller
 
     public function viewAll()
     {
-        $error = Session::get( 'error' );
-        $messages = Session::get('messages');
+        $error = \Session::get('error');
+        $messages = \Session::get('messages');
 
-        $orders=Order::where('status','!=', 2);
+        $orders=Order::where('status','!=', Constants::ORDER_VALIDATE)->get();
+        //$orders=Order::all();
 
         return view('manager.orderList',['orders' => $orders,'error'=>$error,'messages'=>$messages]);
     }
@@ -39,7 +40,7 @@ class OrderController extends Controller
         //==============
         $inputName = 'csv_file';
 
-        if (!$request->hasFile($inputName)) 
+        if (!$request->hasFile($inputName))
         {
             $error=Constants::MSG_ERROR_CODE;
             $message[]=Lang::get('orders.noFile');
@@ -48,7 +49,7 @@ class OrderController extends Controller
                 ->with('messages',$messages);
         }
 
-        if (!$request->file($inputName)->isValid()) 
+        if (!$request->file($inputName)->isValid())
         {
             $error=Constants::MSG_ERROR_CODE;
             $message[]=Lang::get('orders.invalidFile');
@@ -62,12 +63,12 @@ class OrderController extends Controller
         //==============
 
         $file = $request->file($inputName);
-        if (($handle = fopen($file->path, "r")) !== false) 
+        if (($handle = fopen($file->path, "r")) !== false)
         {
             $i = 0;
             setlocale(LC_ALL, 'fr_FR.UTF-8');
 
-            while (($data = fgetcsv($handle, null, ";", "\"")) !== false) 
+            while (($data = fgetcsv($handle, null, ";", "\"")) !== false)
             {
                 $i++;
                 if ($i == 1)
@@ -92,14 +93,14 @@ class OrderController extends Controller
                 $order->name = $customerName;
                 $order->address = $adress;
                 $order->user_id = Constants::DEFAULT_USER_ID;
-                $order->status = Order::WAITING;
+                $order->status = Constants::ORDER_WAITING;
 
                 //======================
                 //Treatment Order lines
                 //======================
                 $detail = str_getcsv($data[4], ";");
                 $orderRows = [];
-                foreach ($detail as $key => $value) 
+                foreach ($detail as $key => $value)
                 {
                     $item = trim(substr($value, 0, strpos($value, "(")));
                     if (strlen($item) <= 0)
@@ -118,14 +119,14 @@ class OrderController extends Controller
 
                     $orderRows[] = $row;
                 }
-            
+
 
                 if(sizeof($orderRows) <= 0)
                 {
                     $error=Constants::MSG_WARNING_CODE;
                     $message[]=Lang::get('orders.noOrdersInFile');
                     continue;
-                } 
+                }
 
                 if($order->save())
                 {

@@ -8,10 +8,6 @@ class Order extends Model
     protected $table = 'order';
     public $timestamps = false;
 
-    static const WAITING = 0;
-    static const IN_PROGRESS = 1;
-    static const VALIDATE = 2;
-
     public function user()
     {
         return $this->hasOne('App\Models\User', 'user_id');
