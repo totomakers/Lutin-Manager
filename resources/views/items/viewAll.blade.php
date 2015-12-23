@@ -12,37 +12,32 @@
                         <thead>
                         <tr class="text-center">
                             <th>Libellé</th>
-                            <th>Poids</th>
-                            <th class="text-right">Editer</th>
-                            <th class="text-right">Supprimer</th>
+                            <th>Poids(g)</th>
+                            <th></th>
                         </tr>
                         </thead>
 
-                        {{-- add form --}}
-                        <form method="post" action="{{ URL::route('items::create') }}">
-                            <tr>
-                                <td><input name="name" type="text" class="form-control input-sm" required /></td>
-
-                                <td><input type="text" name="weight" class="form-control input-sm" required></td>
-                                <td class="text-right">
-                                    <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Ajouter" type="submit"><i class="fa fa-plus"></i></button>
-                                </td>
-                                <td>{{ csrf_field() }}</td>
-                            </tr>
-                        </form>
-
 
                         <tbody>
-
+                            {{-- add form --}}
+                            <form method="post" action="{{ URL::route('items::create') }}">
+                                <tr>
+                                    <td><input name="name" type="text" class="form-control input-sm" required /></td>
+                                    <td><input type="text" name="weight" class="form-control input-sm" required></td>
+                                    <td class="text-right">
+                                        {{ csrf_field() }}
+                                        <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Ajouter" type="submit"><i class="fa fa-plus"></i></button>
+                                    </td>
+                                </tr>
+                            </form>
                         @foreach($items as $item)
                             <tr>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->weight }}</td>
+                                <td class="text-right">{{ $item->weight }}g</td>
                                 <td class="text-right">
                                     <a href="{{ URL::route('items::edit', ['id' => $item->id ]) }}" data-toggle="tooltip" data-placement="top" title="Editer"><i class="fa fa-edit fa-2x"></i></a>
-                                </td>
-                                <td class="text-right">
-                                    <a href="#" onclick="deleteItem({{$item->id}})" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="text-danger fa fa-trash fa-2x"></i></a>
+                                    &nbsp;
+                                    <a href="#" onclick="deleteItem({{$item->id}})" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="text-danger fa fa-ban fa-2x"></i></a>
                                 </td>
                             </tr>
                         @endforeach

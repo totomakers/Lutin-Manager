@@ -5,7 +5,7 @@
     @extends('manager.menu')
      <div class="container-fluid animated fadeIn">
         <div class="row-fluid">
-            <div class="col-xs-offset-1 col-xs-6">
+            <div class="col-xs-offset-3 col-xs-6">
                 <h3><a class="btn btn-info" href="{{ URL::route('users::viewAll') }}" ><i class="fa fa-chevron-circle-left"></i> Retour</a> Formulaire d'édition de {{ $user->name }}</h3>
                 <hr>
                 <form class="form-horizontal" method="post" action="{{ URL::route('users::update', ['id' => $user->id ]) }}" >
