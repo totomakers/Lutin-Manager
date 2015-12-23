@@ -98,7 +98,8 @@ class OrderController extends Controller
         if (!$request->hasFile($inputName))
         {
             $error=Constants::MSG_ERROR_CODE;
-            $message[]=Lang::get('orders.noFile');
+            $messages[]=Lang::get('orders.noFile');
+
             return redirect()->route('orders::viewAll')
                 ->with('error',$error)
                 ->with('messages',$messages);
@@ -108,7 +109,7 @@ class OrderController extends Controller
         if (!$request->file($inputName)->isValid())
         {
             $error=Constants::MSG_ERROR_CODE;
-            $message[]=Lang::get('orders.invalidFile');
+            $messages[]=Lang::get('orders.invalidFile');
             return redirect()->route('orders::viewAll')
                 ->with('error',$error)
                 ->with('messages',$messages);
@@ -140,7 +141,7 @@ class OrderController extends Controller
                 //order already exist
                 if(Order::find($orderNumber))
                 {
-                    $message[]=Lang::get('orders.alreadyExists',['id'=>$orderNumber]);
+                    $messages[]=Lang::get('orders.alreadyExists',['id'=>$orderNumber]);
                     $error=Constants::MSG_WARNING_CODE;
                     continue;
                 }
@@ -163,7 +164,7 @@ class OrderController extends Controller
                     $item = trim(substr($value, 0, strpos($value, "(")));
                     if (strlen($item) <= 0)
                     {
-                        $message[]=Lang::get('orders.hasNoProducts',['id'=>$orderNumber]);
+                        $messages[]=Lang::get('orders.hasNoProducts',['id'=>$orderNumber]);
                         $error=Constants::MSG_WARNING_CODE;
                         continue;
                     }
@@ -182,7 +183,7 @@ class OrderController extends Controller
                 if(sizeof($orderRows) <= 0)
                 {
                     $error=Constants::MSG_WARNING_CODE;
-                    $message[]=Lang::get('orders.noOrdersInFile');
+                    $messages[]=Lang::get('orders.noOrdersInFile');
                     continue;
                 }
 
@@ -190,11 +191,13 @@ class OrderController extends Controller
                 {
                     foreach($orderRows as $key => $value)
                         $value->save();
+                    $error=Constants::MSG_OK_CODE;
+                    $messages[]=Lang::get('orders.importOk');
                 }
                 else
                 {
                     $error=Constants::MSG_ERROR_CODE;
-                    $message[]=Lang::get('orders.saveError');
+                    $messages[]=Lang::get('orders.saveError');
                 }
             }
 
@@ -203,7 +206,7 @@ class OrderController extends Controller
         else
         {
             $error=Constants::MSG_ERROR_CODE;
-            $message[]=Lang::get('orders.fileError');
+            $messages[]=Lang::get('orders.fileError');
         }
 
         return redirect()->route('orders::viewAll')

@@ -27,6 +27,34 @@
 <script type="text/javascript" src="{{ URL::asset('bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('custom/js/app.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('bower/sweetalert/dist/sweetalert.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('bower/remarkable-bootstrap-notify/bootstrap-notify.min.js') }}"></script>
+
+{{-- Affichage messages d'alerte --}}
+
+@if(isset($error) && isset($messages))
+    <script>
+
+                @if($error==\Constants::MSG_OK_CODE)
+                    var titre ='Succes:';
+        var type = 'success';
+                @else
+                    var titre = '{{ ($error == \Constants::MSG_ERROR_CODE) ? 'Erreur' : 'Warning' }}';
+        var type = '{{ ($error == \Constants::MSG_ERROR_CODE) ? 'danger' : 'warning' }}';
+                @endif
+
+                var message = '@foreach($messages as $message){{$message}}<br/>@endforeach';
+
+        $.notify({
+            // options
+            title: titre+'<br/>',
+            message: message
+        },{
+            // settings
+            type: type
+        });
+    </script>
+@endif
+
 @yield('js_page') {{-- additional js --}}
 </body>
 </html>

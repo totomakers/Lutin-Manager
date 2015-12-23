@@ -23,6 +23,9 @@
                 <span class="status-success">Today: {{$today}} </span>
             </div>
 
+
+
+
             {{-- Liste des commandes --}}
 
             <div class="row-fluid">
@@ -97,4 +100,7 @@
 
         </div>
     </div>
+
 @endsection
+
+
