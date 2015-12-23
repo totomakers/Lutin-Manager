@@ -35,9 +35,11 @@
     <script>
 
     @if($error==\Constants::MSG_OK_CODE)
+        var icon = 'fa fa-smile';
         var titre ='Succes:';
         var type = 'success';
     @else
+        var icon = 'fa fa-exclamation';
         var titre = '{{ ($error == \Constants::MSG_ERROR_CODE) ? 'Erreur' : 'Warning' }}';
         var type = '{{ ($error == \Constants::MSG_ERROR_CODE) ? 'danger' : 'warning' }}';
     @endif
@@ -47,10 +49,18 @@
         $.notify({
             // options
             title: titre+'<br/>',
-            message: message
+            message: message,
+            icon : icon,
         },{
             // settings
-            type: type
+            type: type,
+            placement : {
+                from: 'bottom',
+            },
+            animate : {
+                enter : 'animated fadeInUp',
+                exit : 'animated fadeOutDown',
+            },
         });
     </script>
 @endif
