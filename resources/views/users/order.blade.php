@@ -6,7 +6,7 @@
     @extends('users.header')
     <div class="container-fluid ">
         <div class="user-view animated fadeIn">
-            <form action="{{ URL::route('orders::validate', [ "id"=>$order->id] ) }}" method="post">
+            <form action="{{ URL::route('orders::validate', [ "id"=>$order->id] ) }}" method="post" id="form_order_validate">
                 {{csrf_field()}}
                 <div class="row-fluid ">
                     <div class=" col-xs-2">
@@ -53,7 +53,8 @@
                                         x{{ $row->quantity }}
                                     </div>
                                     <div class="tab-tr col-xs-3">
-                                        <input type="number" min="0" max="{{ $row->quantity }}" name="{{$row->item->name}}">
+                                        <input type="number" min="0" max="{{ $row->quantity }}"
+                                               name="{{$row->item->name}}">
                                     </div>
                                 @endforeach
                             </div>
@@ -79,10 +80,36 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-offset-2 text-center">
-                        <input type="submit" value="Commande Terminée" class="btn btn-success btn-lg">
+                        <a href="#" class="btn btn-success btn-lg" onclick=validation()>Commande Terminée</a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+@endsection
+
+@section('js_page')
+    <script>
+        var validation = function () {
+            swal({
+                        title: "Êtes-vous sur?",
+                        text: "Vérifiez bien que la commande est pleine !",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Imprimer",
+                        cancelButtonText: "Annuler",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                           $('#form_order_validate').submit();
+                        }
+                        else {
+                            swal("Annulé", "", "error");
+                        }
+                    });
+        }
+    </script>
 @endsection
