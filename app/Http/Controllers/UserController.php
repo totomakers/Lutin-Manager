@@ -25,7 +25,7 @@ class UserController extends Controller
         $messages = \Session::get('messages');
         $error = \Session::get('error');
 
-        $users = User::where('active', 1)->get();
+        $users = User::where('active', Constants::ACTIVE)->get();
 
         return view('users.viewAll', ['users' => $users,'messages' => $messages, 'error' => $error]);
     }
@@ -112,14 +112,14 @@ class UserController extends Controller
             $messages[] = Lang::get('users.notFound',["username" => $id]);
             $error=Constants::MSG_ERROR_CODE;
         }
-        elseif ($user->active==0) 
+        elseif ($user->active==Constants::ARCHIVED)
         {
             $messages[] = Lang::get('users.notActive',["username" => $id]);
             $error = Constants::MSG_ERROR_CODE;
         }
         else
         {
-            $user->active=0;
+            $user->active=Constants::ARCHIVED;
             $user->save();
             $messages[] = Lang::get('users.deleteOk',["username" => $user->email]);
         }
