@@ -5,7 +5,7 @@
     @extends('manager.menu')
      <div class="container-fluid animated fadeIn">
         <div class="row-fluid">
-            <div class="col-xs-offset-3 col-xs-5">
+            <div class="col-xs-offset-3 col-xs-6">
                 <h2> <a href="javascript:history.go(-1)" ><i class="fa fa-backward"></i> Retour</a> - Formulaire d'édition de {{ $user->name }}</h2>
                 <hr>
                 <form class="form-horizontal" method="post" action="{{ URL::route('users::update', ['id' => $user->id ]) }}" >
