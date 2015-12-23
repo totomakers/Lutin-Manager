@@ -5,8 +5,8 @@
     @extends('manager.menu')
     <div class="container-fluid animated fadeIn">
         <div class="row-fluid">
-            <div class="col-xs-offset-2 col-xs-8">
-                <table class="table table-bordered table-striped table-hover">
+            <div class="col-xs-offset-1 col-xs-10">
+                <table class="table table-striped table-hover">
                     <thead>
                         <th>Nom</th>
                         <th>Rang</th>
