@@ -34,15 +34,15 @@
 @if(isset($error) && isset($messages))
     <script>
 
-                @if($error==\Constants::MSG_OK_CODE)
-                    var titre ='Succes:';
+    @if($error==\Constants::MSG_OK_CODE)
+        var titre ='Succes:';
         var type = 'success';
-                @else
-                    var titre = '{{ ($error == \Constants::MSG_ERROR_CODE) ? 'Erreur' : 'Warning' }}';
+    @else
+        var titre = '{{ ($error == \Constants::MSG_ERROR_CODE) ? 'Erreur' : 'Warning' }}';
         var type = '{{ ($error == \Constants::MSG_ERROR_CODE) ? 'danger' : 'warning' }}';
-                @endif
+    @endif
 
-                var message = '@foreach($messages as $message){{$message}}<br/>@endforeach';
+    var message = '@foreach($messages as $message){{$message}}<br/>@endforeach';
 
         $.notify({
             // options

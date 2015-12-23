@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants;
 use Validator;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
@@ -33,10 +34,6 @@ class AuthController extends Controller
     //try to login with password and email
     public function login(Request $request)
     {
-        //default value
-        $error = false;
-        $message = '';
-
         //input file
         $email = $request->input('email');
         $password = $request->input('password');
@@ -45,11 +42,12 @@ class AuthController extends Controller
         //try to login
         if(!Auth::attempt(['username' => $email, 'password' => $password], $rememberMe))
         {
-            $error = true;
+            $error = Constants::MSG_ERROR_CODE;
             $message = Lang::get('auth.loginFail');
             return redirect()->back()->with(['error' => $error, 'messages' => [ $message ]]);
         }
 
+        $error=Constants::MSG_OK_CODE;
         $message = Lang::get('auth.loginSuccess');
         return redirect()->route('orders::viewAll')->with(['error' => $error, 'messages' => [ $message ]]);
     }

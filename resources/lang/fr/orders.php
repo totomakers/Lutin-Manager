@@ -12,5 +12,7 @@ return [
     "hasNoProducts" => "La commande :id n'a pas de produits",
     "noOrdersInFile"    => "Le fichier ne contient pas de commandes valides",
     "saveError" => "Impossible d'enregistrer les commandes",
-    "importOk"  => "Liste importée avec succès"
+    "importOk"  => "Liste importée avec succès",
+    "uniqueSaveError" => "Impossible d'enregistrer la commande :id",
+    'quantityError' => 'La quantit� de l\'objet ":name" n\'est pas bonne'
 ];
