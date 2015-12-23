@@ -24,15 +24,8 @@ class UserController extends Controller
         $error = \Session::get('error');
 
         $users = User::where('active', 1)->get();
-        $list=[];
-        foreach ($users as $user)
-        {
-            $total=Order::where('user_id','=',$user->id)->count();
-            $today=Order::where('user_id','=',$user->id)->where('status','=',Constants::ORDER_VALIDATE)->count();
-            $list[]=array($user,$total,$today);
-        }
 
-        return view('users.viewAll', ['list' => $list,'messages' => $messages, 'error' => $error]);
+        return view('users.viewAll', ['users' => $users,'messages' => $messages, 'error' => $error]);
     }
 
     public function update($id, Request $request)
