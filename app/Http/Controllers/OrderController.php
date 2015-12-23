@@ -95,11 +95,11 @@ class OrderController extends Controller
         return view('manager.orderValidated',['orders' => $orders,'error'=>$error,'messages'=>$messages]);
     }
 
-
-
     public function importFile(Request $request)
     {
         $messages=[];
+        $error=Constants::MSG_OK_CODE;
+        $num_successful_import=0;
 
         //==============
         //Check
@@ -125,7 +125,6 @@ class OrderController extends Controller
             return redirect()->route('orders::viewAll')
                 ->with('error',$error)
                 ->with('messages',$messages);
-
         }
 
         //==============
@@ -136,7 +135,7 @@ class OrderController extends Controller
 
         if (($handle = fopen($file, "r")) !== false)
         {
-            $i = 0;
+            $i=0;
             setlocale(LC_ALL, 'fr_FR.UTF-8');
 
             while (($data = fgetcsv($handle, null, ";", "\"")) !== false)
@@ -191,20 +190,11 @@ class OrderController extends Controller
                     $orderRows[] = $row;
                 }
 
-
-                if(sizeof($orderRows) <= 0)
-                {
-                    $error=Constants::MSG_WARNING_CODE;
-                    $messages[]=Lang::get('orders.noOrdersInFile');
-                    continue;
-                }
-
                 if($order->save())
                 {
                     foreach($orderRows as $key => $value)
                         $value->save();
-                    $error=Constants::MSG_OK_CODE;
-                    $messages[]=Lang::get('orders.importOk');
+                    $num_successful_import++;
                 }
                 else
                 {
@@ -220,6 +210,8 @@ class OrderController extends Controller
             $error=Constants::MSG_ERROR_CODE;
             $messages[]=Lang::get('orders.fileError');
         }
+
+        $messages[]=Lang::get('orders.lineImported',['number' => $num_successful_import]);
 
         return redirect()->route('orders::viewAll')
             ->with('error',$error)
@@ -247,14 +239,20 @@ class OrderController extends Controller
         {    
             $order->status = Constants::ORDER_VALIDATE;
             $order->date_validation = Carbon::now("GMT+1");
+            if(!$order->save())
+            {
+                $messages[] = Lang::get('orders.uniqueSaveError', ['id' => $order->id]);
+                $error = Constants::MSG_ERROR_CODE;
+                return redirect()->route('orders::viewAll')->with(['messages' => $messages, 'error' => $error]);
+            }
+            $messages[] = Lang::get('orders.saveOk');
         }
-        if(!$order->save())
+        else
         {
-            $messages[] = Lang::get('orders.uniqueSaveError', ["id" => $order->id]);
-            $error = Constants::MSG_ERROR_CODE;
-            return redirect()->route('orders::viewAll')->with(['messages' => $messages, 'error' => $error]);
+            $error=Constants::MSG_WARNING_CODE;
+            $messages[] = Lang::get('orders.alreadyValidated');
         }
-        $messages[] = Lang::get('orders.saveOk');
+
         return view('users.deliveryNote', ['order' => $order, 'messages' => $messages, 'error' => $error]);
     }
 

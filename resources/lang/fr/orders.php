@@ -15,5 +15,7 @@ return [
     "saveOk" => "Commande sauvegardée",
     "importOk"  => "Liste importée avec succès",
     "uniqueSaveError" => "Impossible d'enregistrer la commande :id",
-    'quantityError' => 'La quantité de l\'objet ":name" n\'est pas bonne'
+    'quantityError' => 'La quantité de l\'objet ":name" n\'est pas bonne',
+    'alreadyValidated' => 'La commande a déjà été validée',
+    'lineImported' => ':number commandes importées'
 ];
