@@ -4,7 +4,7 @@
 @section('content')
     <div class="container-fluid animated fadeIn" xmlns="http://www.w3.org/1999/html">
         <div class="row">
-            <div class="col-xs-offset-2 col-xs-10">
+            <div class="col-xs-offset-2 col-xs-5">
                 <img class="img-responsive pull-left" src="{{ URL::asset('custom/img/logo.png') }}" alt="Logo"
                      id="logo"/>
 
@@ -12,16 +12,21 @@
 
                 <p class="subtitle">Et Joyeux Noël à  tous!</p>
             </div>
+            <div class="col-xs-2 text-center">
+                </br></br>
+                <h4>{{ $order->name }}</h4>
+                <h5>{{ $order->address }}</h5>
+            </div>
         </div>
         <div class="row">
-            <div class="col-xs-offset-2 col-xs-10">
+            <div class="col-xs-offset-2 col-xs-7">
 
                 <h2>Bon de livraison n°{{ $order->id.date('-d-m-Y') }}</h2>
                 <label>Date de la commande : {{ date('d F Y') }}</label>
 
-                <h4>Objet : commande de matériel</h4>
+                <h4>Objet: Commande de matériel </br> Client: {{ $order->name }}</h4>
 
-                <p class="text-left">Bonjour M. {{ $order->name }} </p>
+                <p class="text-left">Bonjour,  </p>
 
                 <p class="text-justify">
                     Le service commercial de Lutin Manager vous remercie pour votre commande dont vous trouverez le
@@ -33,7 +38,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-offset-2 col-xs-5">
+            <div class="col-xs-offset-2 col-xs-7">
                 <h3>Rappel de votre commande</h3>
                 <table class="table table-striped table-hover">
                     <thead>
@@ -50,7 +55,7 @@
                     @foreach($order->rows as $row)
                         {{-- */
                         $totalQuantity   = $totalQuantity + $row->quantity;
-                        $totalWeight     = $totalWeight + $row->item->weight
+                        $totalWeight     = $totalWeight + ($row->item->weight * $row->quantity)
                         /* --}}
                         <tr>
                             <td class=".col-md-6"> {{ $row->item->name }} </td>
@@ -69,7 +74,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-offset-1 col-xs-10">
+            <div class="col-xs-offset-1 col-xs-7">
 
             </div>
         </div>
