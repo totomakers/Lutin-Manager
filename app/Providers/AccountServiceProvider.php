@@ -58,7 +58,7 @@ class AccountServiceProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
-        $hashedPassword = hashPassword($credentials['username'], $credentials['password']);
+        $hashedPassword = $this->hashPassword($credentials['username'], $credentials['password']);
         return User::where('email', '=', $credentials['username'])->where('sha1_password', '=', $hashedPassword)->first();
     }
 
@@ -71,17 +71,22 @@ class AccountServiceProvider implements UserProvider
      */
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
-        $hashedPassword = hashPassword($credentials['username'], $credentials['password']);
+        $hashedPassword = $this->hashPassword($credentials['username'], $credentials['password']);
         return $user->sha1_password == $hashedPassword;
+    }
+    
+    public function hashPassword($username, $password)
+    {
+        return AccountServiceProvider::hash($username, $password);
     }
 
     /**
-     * Hash password for TrinityCore
+     * Hash he password
      * @param  string $username username
      * @param  string $password password not encrypted
      * @return string           hashed password
      */
-    public static function hashPassword($username, $password)
+    public static function hash($username, $password)
     {
         return sha1($username.':'.$password);
     }

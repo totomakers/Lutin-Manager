@@ -14,6 +14,8 @@ use App\Models\OrderRow;
 use App\Models\User;
 use App\Constants;
 
+use App\Providers\AccountServiceProvider;
+
 class UserController extends Controller
 {
     public function __construct() {}
@@ -54,7 +56,7 @@ class UserController extends Controller
             'email'             => 'email|required',
             'password'          => 'string',
         );
-
+        
         $validatorUser = Validator::make($request->all(), $rulesUser);
         if ($validatorUser->fails()) 
         {
@@ -65,14 +67,13 @@ class UserController extends Controller
         }
         else
         {
-            $id = Request::input('id');
-            $name = Request::input('name');
-            $rank = Request::input('rank');
-            $email = Request::input('email');
-            $password = Request::input('password');
+            $name = $request->input('name');
+            $rank = $request->input('rank');
+            $email = $request->input('email');
+            $password = $request->input('password');
 
             if($password != '') 
-                $password = AccountServiceProvider::hashPassword($email, $password);
+                $password = AccountServiceProvider::hash($email, $password);
 
             $user = User::find($id);
             if(!$user)
@@ -90,7 +91,7 @@ class UserController extends Controller
                     $user->sha1_password = $password;
 
                 $user->save();
-                $messages[] = Lang::get('user.updateOk');
+                $messages[] = Lang::get('users.updateOk', ['username' => $user->name]);
             }
         }
 
@@ -129,53 +130,50 @@ class UserController extends Controller
     public function create(Request $request)
     {
         $error = Constants::MSG_OK_CODE;
-        $messages = array();
+        $messages = [];
         
         //rules to apply of each field
         $rulesUser = array(
-            'id'                => 'integer|required',
             'name'              => 'string|required',
             'rank'              => 'integer|required|min:0',
-            'email'             => 'string|required|regex:^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-            'password'          => 'string|required|regex:^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,15}$',
+            'email'             => 'email|required',
+            'password'          => 'string|required',
         );
 
         $validatorUser = Validator::make($request->all(), $rulesUser);
-        if ($validatorUser->fails()) {
+        if ($validatorUser->fails())
+        {
             foreach($validatorUser->messages()->getMessages() as $key => $value)
                 $messages[] = Lang::get('validator.global', ["name" => $key]);
                 
-            $error=Constants::MSG_ERROR_CODE;
+            $error = Constants::MSG_ERROR_CODE;
         }
         else
         {
-            $id = Request::input('id');
-            $name = Request::input('name');
-            $rank = Request::input('rank');
-            $email = Request::input('email');
-            $password = Request::input('password');
-                
-            $user = User::find($id);
-            if(!$user)
+            $name = $request->input('name');
+            $rank = $request->input('rank');
+            $email = $request->input('email');
+            $password = $request->input('password');
+            
+            $user = User::where('email', '=', $email)->first();
+            if($user)
             {
-                $messages[] = Lang::get('users.alreadyExist',["username" => $user->email]);
+                $messages[] = Lang::get('users.alreadyExist');
                 $error = Constants::MSG_ERROR_CODE;
             }
             else
             {
-                $provider = new AccountProvider();
-                $password = $provider->hashPassword($email, $password);
+                $password = AccountServiceProvider::hash($email, $password);
 
-                $user= new User();
-                
-                $user->name=$name;
-                $user->rank=$rank;
-                $user->email=$email;
-                $user->sha1_password=$password;
-                $user->active=1;
-
+                $user = new User();
+                $user->name = $name;
+                $user->rank = $rank;
+                $user->email = $email;
+                $user->sha1_password = $password;
+                $user->active = 1;
                 $user->save();
-                $messages[] = Lang::get('users.createOk',["username" => $email]);
+                
+                $messages[] = Lang::get('users.createOk', ["username" => $email]);
             }
         }
         

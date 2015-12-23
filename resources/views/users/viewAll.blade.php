@@ -15,18 +15,19 @@
                         <th class="text-right"></th>
                         <th class="text-right"></th>
                     </thead>
-                    <form>
+                    {{-- add form --}}
+                    <form method="post" action="{{ URL::route('users::create') }}">
                         <tr>
-                            <td><input type="text" class="form-control input-sm" required></input></td>
+                            <td><input name="name" type="text" class="form-control input-sm" required></input></td>
                             <td>
-                                <select class="form-control input-sm">
+                                <select name="rank" class="form-control input-sm">
                                   <option value=0>Employé</option>
                                   <option value=1>Manager</option>>
                                 </select>
                             </td>
                             <td><input type="email" name="email" class="form-control input-sm" required></td>
                             <td><input type="password" name="password" class="form-control input-sm" required></td>
-                            <td></td>
+                            <td>{{ csrf_field() }}</td>
                             <td class="text-right">
                                 <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Ajouter" type="submit"><i class="fa fa-plus"></i></button>
                             </td>
