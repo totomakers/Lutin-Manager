@@ -85,6 +85,18 @@ class OrderController extends Controller
         }
     }
 
+    public function viewOld()
+    {
+        $error = \Session::get('error');
+        $messages = \Session::get('messages');
+
+        $orders = Order::where('status','=',Constants::ORDER_VALIDATE)->get();
+
+        return view('manager.orderValidated',['orders' => $orders,'error'=>$error,'messages'=>$messages]);
+    }
+
+
+
     public function importFile(Request $request)
     {
         $messages=[];

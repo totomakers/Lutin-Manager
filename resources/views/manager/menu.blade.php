@@ -35,6 +35,9 @@
                             <li @if(Route::getCurrentRoute()->getName() == 'users::viewAll') class="active" @endif>
                                 <a href="{{ URL::route('users::viewAll') }}">Gestion des Employés</a>
                             </li>
+                            <li @if(Route::getCurrentRoute()->getName() == 'orders::deliveryNotes') class="active" @endif>
+                                <a href="{{ URL::route('orders::deliveryNotes') }}">Archives</a>
+                            </li>
                            {{-- 
                             <li @if(Route::getCurrentRoute()->getName() == '') class="active" @endif>
                                 <a href="{{ URL::route('') }}">Statistiques</a>
