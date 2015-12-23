@@ -17,4 +17,7 @@ abstract class Constants
     const RANK_USER=0;
     const RANK_ADMIN=1;
 
+    const ARCHIVED=0;
+    const ACTIVE=1;
+
 }

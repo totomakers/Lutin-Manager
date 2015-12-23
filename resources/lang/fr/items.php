@@ -1,10 +1,11 @@
 <?php
 
 return [
-    "notFoundById" => "L'article numÈro :id n'existe pas",
-    "notCreated" => "Impossible de crÈer l'article",
-    "created"   => "Article crÈe",
-    "modified"  => "Article modifiÈ",
-    "deleted"   => "Article supprimÈ",
-    "invalidForm" => "DonnÈes non valides"
+    "notFoundById" => "L'article num√©ro :id n'existe pas",
+    'notCreated' => "Impossible de cr√©er l'article",
+    'created'   => 'Article cr√©e',
+    'modified'  => 'Article modifi√©',
+    'deleted'   => 'Article supprim√©',
+    'invalidForm' => 'Donn√©es non valides',
+    'notActive' => 'Article d√©j√† archiv√©'
     ];
