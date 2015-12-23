@@ -8,6 +8,27 @@
     color: #ffd700;
 }
 
+/* Tableau */
+.tab-tr 
+{
+    font-size: 1.5em;
+}
+
+tr
+{
+    font-size: 1.3em;
+}
+
+.tab-head > .tab-tr 
+{
+    font-weight: bold;
+    font-size: 2em;
+}
+
+thead> tr{
+    font-size: 1.5em;
+}
+
 /* Commmand Status */
 .status-progress {
     color: #ff770b;
