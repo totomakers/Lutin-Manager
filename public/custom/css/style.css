@@ -1,43 +1,14 @@
-.v-center {
-    display: inline-block;
-    vertical-align: middle !important;
-    float: none;
-}
-
-#logo {
-    margin-top: 17px;
-    margin-right: 10px;
-}
-
+/* Login form */
 .connection {
     margin-top: 15%;
 }
 
-.user-view{
-    margin-top:200px;
-}
-
-.bar{
-    height:5px;
-    background-color: #FFFFFF;
-    position: relative;
-    top: 170px;
-    width:60%;
-    margin-left: 20%;
-}
-
-.weight{
-    margin-top: 190px;
-}
-
-em {
+/* Subtitle application name */
+.subtitle {
     color: #ffd700;
 }
 
-.users-info {
-
-    background-color: #3D5062;
-}
+/* Commmand Status */
 
 .status-progress {
     color: #ff770b;
@@ -51,11 +22,7 @@ em {
     color: #2aff0b;
 }
 
-
-.btn-import {
-    margin-bottom: 15px;
-}
-
+/* Support input type file */
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -76,24 +43,3 @@ em {
     cursor: inherit;
     display: block;
 }
-/* Tableau */
-.tab-tr {
-    font-size: 1.5em;
-}
-.tab-head > .tab-tr {
-    font-weight: bold;
-    font-size: 2em;
-}
-
-thead> tr{
-    font-size: 1.5em;
-
-}
-
-/* Input number */
-
-input[type=number] {
-
-    width:60px;
-}
-

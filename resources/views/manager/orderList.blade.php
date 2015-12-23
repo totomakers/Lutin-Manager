@@ -2,32 +2,30 @@
 @section('title', 'Liste des Commandes')
 
 @section('content')
-
     @extends('manager.menu')
     <div class="container-fluid animated fadeIn">
         <div class="row-fluid">
             <div class="col-xs-12 text-center">
                 <form method="post" action="{{ route('orders::import') }}" enctype="multipart/form-data">
-                    {{csrf_field()}}
+                        {{csrf_field()}}
                         <span class="btn btn-default btn-file">
                             Fichier de Commandes <input type="file" name="csv_file"/>
                         </span>
                         <input type="submit" class="btn btn-success" value="Importer"/>
                 </form>
             </div>
-            <div class="col-xs-12 text-center">
-                Total: {{$total}}  |
-                Validée: {{$totalValidated}} |
-                <span class="status-waiting">En attente: {{$waiting}}</span>  |
-                <span class="status-progress">Assignée: {{$assigned}}</span>  |
-                <span class="status-success">Today: {{$today}} </span>
+            <div class="col-xs-12 text-center animated zoomIn">
+                <ul class="list-inline">
+                    <li>Total: {{$total}}</li>
+                    <li>Validée: {{$totalValidated}}</li>
+                    <li class="status-waiting">En attente: {{$waiting}}</li>
+                    <li class="status-progress">Assignée: {{$assigned}}</li>
+                    <li class="status-success">Aujourd'hui: {{$today}}</li>
+                </ul>
+                <hr>
             </div>
-
-
-
-
+            
             {{-- Liste des commandes --}}
-
             <div class="row-fluid">
                 <div class="col-xs-offset-1 col-xs-10">
                     <table class="table table-striped table-hover">
@@ -71,11 +69,10 @@
                     </table>
                 </div>
             </div>
-
             {{-- Liste des employés avec stats--}}
-
             <div class="row-fluid">
                 <div class="col-xs-offset-1 col-xs-10">
+                    <hr/>
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr class="text-center">
@@ -88,16 +85,14 @@
                         @foreach ($detailsUsers as $details)
                             <tr>
                                 <td>{{ $details[0]->name }}</td>
-                                <td>{{ $details[1] }} ({{ $details[2] }})</td>
-                                <td>{{ $details[3] }} ({{ $details[4] }})</td>
+                                <td>{{ $details[1] }} ({{ $details[2] }} %)</td>
+                                <td>{{ $details[3] }} ({{ $details[4] }} %)</td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-
-
         </div>
     </div>
 
