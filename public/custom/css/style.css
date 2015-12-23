@@ -13,6 +13,10 @@
     margin-top: 15%;
 }
 
+.user-view{
+    margin-top:250px;
+}
+
 em {
     color: #ffd700;
 }
@@ -29,6 +33,11 @@ em {
 .status-waiting {
     color: #ff1d06;
 }
+
+.status-success {
+    color: #2aff0b;
+}
+
 
 .btn-import {
     margin-bottom: 15px;
@@ -61,12 +70,4 @@ em {
 .tab-head > .tab-tr {
     font-weight: bold;
     font-size: 2em;
-}
-
-.table {
-    margin-top: 200px;
-}
-
-.well {
-    margin-top: 100px;
 }
