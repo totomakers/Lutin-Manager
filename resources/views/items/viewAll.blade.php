@@ -26,7 +26,7 @@
                                     <td><input type="text" name="weight" class="form-control input-sm" required></td>
                                     <td class="text-right">
                                         {{ csrf_field() }}
-                                        <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Ajouter" type="submit"><i class="fa fa-plus"></i></button>
+                                        <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Ajouter" type="submit" name="ajouter"><i class="fa fa-plus"></i></button>
                                     </td>
                                 </tr>
                             </form>

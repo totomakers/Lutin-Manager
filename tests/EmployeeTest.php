@@ -64,7 +64,8 @@ class EmployeeTest extends TestCase
         ->select('0','rank')
         ->type('test1@test.com','email')
         ->type('Tst3','password')
-        ->press('ajouter');
+        ->press('ajouter')
+        ->see("Le champ password n'est pas correct.");
     }
 
     public function testEmployeeCreationPwdLong()
@@ -78,7 +79,8 @@ class EmployeeTest extends TestCase
         ->select('0','rank')
         ->type('test2@test.com','email')
         ->type('Tst3dsfsdfsdfdssdf','password')
-        ->press('ajouter');
+        ->press('ajouter')
+        ->see("Le champ password n'est pas correct.");
     }
 
     public function testEmployeeCreationNoCaps()
@@ -92,6 +94,7 @@ class EmployeeTest extends TestCase
         ->select('0','rank')
         ->type('test3@test.com','email')
         ->type('st3dsfsdfsdfdssdf','password')
-        ->press('ajouter');
+        ->press('ajouter')
+        ->see("Le champ password n'est pas correct.");
     }
 }
