@@ -4,16 +4,17 @@
 @section('content')
     <div class="container-fluid animated fadeIn" xmlns="http://www.w3.org/1999/html">
         <div class="row">
-            <div class="col-xs-offset-1 col-xs-6">
+            <div class="col-xs-offset-2 col-xs-10">
                 <img class="img-responsive pull-left" src="{{ URL::asset('custom/img/logo.png') }}" alt="Logo"
                      id="logo"/>
 
                 <h1>Lutin Management</h1>
-                <h6><em>Et Joyeux Noël à  tous!</em></h6>
+
+                <p class="subtitle">Et Joyeux Noël à  tous!</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-offset-1 col-xs-6">
+            <div class="col-xs-offset-2 col-xs-10">
 
                 <h2>Bon de livraison n°{{ $order->id.date('-d-m-Y') }}</h2>
                 <label>Date de la commande : {{ date('d F Y') }}</label>
@@ -23,13 +24,16 @@
                 <p class="text-left">Bonjour M. {{ $order->name }} </p>
 
                 <p class="text-justify">
-                    Le service commercial de Lutin Manager vous remercie pour votre commande dont vous trouverez le détails ci-dessous.</br>
-                    Nous espérons avoir répondu à vos attentes.
+                    Le service commercial de Lutin Manager vous remercie pour votre commande dont vous trouverez le
+                    détail ci-dessous.</br>
+                    Espérant avoir répondu à vos attentes,</br></br>
+                    Cordialement,</br>
+                    {{ $order->user->name }}
                 </p>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-offset-1 col-xs-6">
+            <div class="col-xs-offset-2 col-xs-5">
                 <h3>Rappel de votre commande</h3>
                 <table class="table table-striped table-hover">
                     <thead>
@@ -65,24 +69,24 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-offset-1 col-xs-6">
-                <p class="text-left">
-                    Cordialement,</br>
-                    {{ $order->user->name }}
-                </p>
+            <div class="col-xs-offset-1 col-xs-10">
+
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-offset-1 col-xs-6">
+            <div class="col-xs-offset-1 col-xs-10">
 
-            @if(isset($error))
 
                 <div class="text-center">
-                    <a class="btn btn-success btn-lg" href="{{URL::route('orders::viewAll')}}">Commande suivante</a>
-                    <a href="javascript:window.print()" class="btn btn-default btn-lg">Imprimer le Bon de Commande</a>
+                    @if(isset($error))
+                        <a class="btn btn-success btn-lg hidden-print" href="{{URL::route('orders::viewAll')}}">Commande
+                            suivante</a>
+                    @endif
+                    <a href="javascript:window.print()" class="btn btn-default btn-lg hidden-print">Imprimer le Bon de
+                        Commande</a>
                 </div>
-            @endif
 
+            </div>
         </div>
     </div>
 @endsection

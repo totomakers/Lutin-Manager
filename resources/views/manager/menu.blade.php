@@ -27,16 +27,16 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li @if(Route::getCurrentRoute()->getName() == 'orders::viewAll') class="active" @endif>
-                                <a href="{{ URL::route('orders::viewAll') }}">Liste des Commandes</a>
+                                <a href="{{ URL::route('orders::viewAll') }}"><i class="fa fa-shopping-cart fa-lg"></i> Liste des Commandes</a>
                             </li>
                             <li @if(Route::getCurrentRoute()->getName() == 'items::viewAll') class="active" @endif>
-                                <a href="{{ URL::route('items::viewAll') }}">Gestion des Articles</a>
+                                <a href="{{ URL::route('items::viewAll') }}"><i class="fa fa-cube fa-lg"></i> Gestion des Articles</a>
                             </li>
                             <li @if(Route::getCurrentRoute()->getName() == 'users::viewAll') class="active" @endif>
-                                <a href="{{ URL::route('users::viewAll') }}">Gestion des Employés</a>
+                                <a href="{{ URL::route('users::viewAll') }}"><i class="fa fa-users fa-lg"></i> Gestion des Employés</a>
                             </li>
                             <li @if(Route::getCurrentRoute()->getName() == 'orders::deliveryNotes') class="active" @endif>
-                                <a href="{{ URL::route('orders::deliveryNotes') }}">Archives</a>
+                                <a href="{{ URL::route('orders::deliveryNotes') }}"><i class="fa fa-archive fa-lg"></i> Archives</a>
                             </li>
                            {{-- 
                             <li @if(Route::getCurrentRoute()->getName() == '') class="active" @endif>
