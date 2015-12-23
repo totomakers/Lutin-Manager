@@ -17,10 +17,13 @@
             </div>
             <div class="col-xs-12 text-center">
                 Total: {{$total}}  |
+                Validée: {{$totalValidated}} |
                 <span class="status-waiting">En attente: {{$waiting}}</span>  |
                 <span class="status-progress">Assignée: {{$assigned}}</span>  |
                 <span class="status-success">Today: {{$today}} </span>
             </div>
+
+            {{-- Liste des commandes --}}
 
             <div class="row-fluid">
                 <div class="col-xs-offset-1 col-xs-10">
@@ -65,6 +68,33 @@
                     </table>
                 </div>
             </div>
+
+            {{-- Liste des employés avec stats--}}
+
+            <div class="row-fluid">
+                <div class="col-xs-offset-1 col-xs-10">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Employé</th>
+                            <th>Total commandes traitées (%)</th>
+                            <th>Total commandes aujourd'hui (%)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($detailsUsers as $details)
+                            <tr>
+                                <td>{{ $details[0]->name }}</td>
+                                <td>{{ $details[1] }} ({{ $details[2] }})</td>
+                                <td>{{ $details[3] }} ({{ $details[4] }})</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
         </div>
     </div>
 @endsection
