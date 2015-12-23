@@ -23,7 +23,7 @@
                 <p class="text-left">Bonjour M. {{ $order->name }} </p>
 
                 <p class="text-justify">
-                    Le service commercial de Lutin Manager vous remercie pour votre commande.</br>
+                    Le service commercial de Lutin Manager vous remercie pour votre commande dont vous trouverez le détails ci-dessous.</br>
                     Nous espérons avoir répondu à vos attentes.
                 </p>
             </div>
