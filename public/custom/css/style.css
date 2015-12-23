@@ -4,33 +4,33 @@
     float: none;
 }
 
-#logo{
+#logo {
     margin-top: 17px;
     margin-right: 10px;
 }
 
-.connection{
+.connection {
     margin-top: 15%;
 }
 
-em{
-    color:#ffd700;
+em {
+    color: #ffd700;
 }
 
-.users-info{
+.users-info {
 
     background-color: #3D5062;
 }
 
-.status-progress{
+.status-progress {
     color: #ff770b;
 }
 
-.status-waiting{
+.status-waiting {
     color: #ff1d06;
 }
 
-.btn-import{
+.btn-import {
     margin-bottom: 15px;
 }
 
@@ -38,6 +38,7 @@ em{
     position: relative;
     overflow: hidden;
 }
+
 .btn-file input[type=file] {
     position: absolute;
     top: 0;
@@ -53,11 +54,19 @@ em{
     cursor: inherit;
     display: block;
 }
-
-
 /* Tableau */
-
-.tab-head >.tab-tr{
-    font-weight: bold;
+.tab-tr {
     font-size: 1.5em;
+}
+.tab-head > .tab-tr {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.table {
+    margin-top: 200px;
+}
+
+.well {
+    margin-top: 100px;
 }
