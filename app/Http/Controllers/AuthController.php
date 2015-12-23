@@ -7,12 +7,8 @@ use Validator;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
-use Carbon\Carbon;
 
-use App\Models\Item;
 use App\Models\Order;
-use App\Models\OrderRow;
-use App\Models\User;
 
 use Auth;
 
@@ -27,7 +23,18 @@ class AuthController extends Controller
     
     public function logout()
     {
+        $connectedUser = Auth::user();
+        $order = Order::where('user_id','=',$connectedUser->id)->where('status','=',Constants::ORDER_IN_PROGRESS)->first();
+
+        if($order)
+        {
+            $order->status=Constants::ORDER_WAITING;
+            $order->user_id=Constants::DEFAULT_USER_ID;
+            $order->save();
+        }
+
         Auth::logout();
+
         return redirect()->route('auth::viewLogin');
     }
     
