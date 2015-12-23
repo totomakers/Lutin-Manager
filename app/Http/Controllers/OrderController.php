@@ -30,14 +30,19 @@ class OrderController extends Controller
         if ($connectedUser->rank==Constants::RANK_ADMIN)
         {
             $orders=Order::where('status','!=', Constants::ORDER_VALIDATE)->get();
-            return view('manager.orderList',['orders' => $orders,'error'=>$error,'messages'=>$messages]);
+            $today = (new \DateTime())->setTime(0,0);
+            $totalOrders=Order::All()->count();
+            $totalWaiting=Order::where('status','=',Constants::ORDER_WAITING)->count();
+            $totalAssigned=Order::where('status','=',Constants::ORDER_IN_PROGRESS)->count();
+            $todayOrders=Order::where('date_validation','>',$today)->count();
+            return view('manager.orderList',['orders' => $orders,'error'=>$error,'messages'=>$messages,'total'=>$totalOrders,'today'=>$todayOrders,'waiting'=>$totalWaiting,'assigned'=>$totalAssigned]);
         }
         else
         {
-            // on recherche si on a déjà une commande attribuée
+            // on recherche si on a dÃ©jÃ  une commande attribuÃ©e
             $order=Order::where('user_id', $connectedUser->id)->Where('status',Constants::ORDER_IN_PROGRESS)->first();
 
-            // sinon on prend la première libre et on l'assigne
+            // sinon on prend la premiÃ¨re libre et on l'assigne
             if ($order==null) {
                 $order = Order::where('status', '=', Constants::ORDER_WAITING)->first();
                 $order->user_id = $connectedUser->id;

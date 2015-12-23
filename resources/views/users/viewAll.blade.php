@@ -11,19 +11,23 @@
                         <th>Nom</th>
                         <th>Rank</th>
                         <th>Email</th>
+                        <th>Total</th>
+                        <th>Aujourd'hui</th>
                         <th class="text-right">Editer</th>
                         <th class="text-right">Supprimer</th>
                     </thead>
-                    @foreach ($users as $user)
+                    @foreach ($list as $details)
                         <tr>
-                            <td>{{ $user->name }}</th>
-                            <td>{{ ($user->rank == 0) ? 'Employé' : 'Manager' }}</td>
-                            <td>{{ $user->email }}</td>
+                            <td>{{ $details[0]->name }}</td>
+                            <td>{{ ($details[0]->rank == 0) ? 'Employé' : 'Manager' }}</td>
+                            <td>{{ $details[0]->email }}</td>
+                            <td>{{ ($details[0]->rank == 0) ? $details[1] : 'NA' }}</td>
+                            <td>{{ ($details[0]->rank == 0) ? $details[2] : 'NA' }}</td>
                             <td class="text-right">
                                 <a href="#" data-toggle="tooltip" data-placement="top" title="Editer"><i class="fa fa-edit fa-2x"></i></a>
                             </td>
                             <td class="text-right">
-                                <a href="#" onclick="deleteUser({{$user->id}})" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="text-danger fa fa-trash fa-2x"></i></a>
+                                <a href="#" onclick="deleteUser({{$details[0]->id}})" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="text-danger fa fa-trash fa-2x"></i></a>
                             </td>
                         </tr>
                     @endforeach
