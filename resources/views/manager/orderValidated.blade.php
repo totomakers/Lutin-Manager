@@ -32,7 +32,7 @@
                                 <td>{{ $order->user->name }}</td>
                                 <td>{{ (new Carbon($order->date_validation))->formatLocalized('%d %B %Y') }}</td>
                                 <td class="text-right">
-                                    <a target='_blank' href="{{ URL::route('orders::delivery', ['id' => $order->id ]) }}" data-toggle="tooltip" data-placement="top" title="Bon de livraison"><i class="fa fa-edit fa-2x"></i></a>
+                                    <a target='_blank' href="{{ URL::route('orders::delivery', ['id' => $order->id ]) }}" data-toggle="tooltip" data-placement="top" title="Bon de livraison"><i class="fa fa-file-text fa-2x"></i></a>
                                 </td>
                             </tr>
                         @endforeach
