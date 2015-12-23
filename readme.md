@@ -65,3 +65,11 @@ Les packages sont disponible [ici](http://bower.io/search/)
 ### Astuces
 
 + [Github Markdown Editor](https://jbt.github.io/markdown-editor/)
+
+### CSS
+
+Sweet Alert ->AlertJS
+Select2 ->Pour modifier les Selects
+awesome-bootstrap-checkbox-> CheckBox
+animate.css->animation CSS
+bootswatch-> thèmes bootstrap

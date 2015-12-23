@@ -214,10 +214,8 @@ class OrderController extends Controller
             ->with('messages',$messages);
     }
 
-    public function validateOrder(Request $request, $id){}
-
-    public function deliveryNote($id, Request $request)
-    {   
+    public function validateOrder(Request $request, $id)
+    {
         $error = Constants::MSG_OK_CODE;
         $messages = [];
 
@@ -225,27 +223,32 @@ class OrderController extends Controller
 
         foreach ($order->rows as $row)
         {
-            if($request[$row->item->name] != $row->quantity)
+            if($request->input(str_replace(' ','_',$row->item->name)) != $row->quantity)
             {
-                $messages[] = Lang::get('order.quantityError', ["item" => $row->item->name]);
+                $messages[] = Lang::get('orders.quantityError', ["name" => $row->item->name]);
                 $error = Constants::MSG_ERROR_CODE;
             }
         }
         if($error == Constants::MSG_ERROR_CODE)
-            echo "erreur";//return redirect()->route('orders::viewAll')->with(['messages' => $messages, 'error' => $error]);
-
+            return redirect()->route('orders::viewAll')->with(['messages' => $messages, 'error' => $error]);
         if($order->status != Constants::ORDER_VALIDATE)
         {    
             $order->status = Constants::ORDER_VALIDATE;
-            $order->date_validation = Carbon::now(1);
+            $order->date_validation = Carbon::now("GMT+1");
         }
         if(!$order->save())
         {
-            $messages[] = Lang::get('order.uniqueSaveError', ["id" => $order->id]);
+            $messages[] = Lang::get('orders.uniqueSaveError', ["id" => $order->id]);
             $error = Constants::MSG_ERROR_CODE;
             return redirect()->route('orders::viewAll')->with(['messages' => $messages, 'error' => $error]);
         }
-        
+        $messages[] = Lang::get('orders.saveOk');
+        return view('users.deliveryNote', ['order' => $order, 'messages' => $messages, 'error' => $error]);
+    }
+
+    public function deliverynote($id)
+    {
+        $order = Order::find($id);
         return view('users.deliveryNote', ['order' => $order]);
     }
 }
