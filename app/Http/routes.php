@@ -41,7 +41,7 @@ Route::group(['as' => 'users', 'prefix' => 'users'], function()
 {
     Route::get('/',                     ['as' => '::viewAll', 'middleware' => 'auth.rank:1', 'uses' => 'UserController@viewAll']);
     Route::put('/{id}',                 ['as' => '::update',  'middleware' => 'auth.rank:1', 'uses' => 'UserController@update'])->where('id', '[0-9]+');
-    Route::delete('/{id}',              ['as' => '::delete',  'middleware' => 'auth.rank:1', 'uses' => 'UserController@delete'])->where('id', '[0-9]+');
+    Route::delete('/delete/{id}',       ['as' => '::delete',  'middleware' => 'auth.rank:1', 'uses' => 'UserController@delete'])->where('id', '[0-9]+');
     Route::post('/',                    ['as' => '::create',  'middleware' => 'auth.rank:1', 'uses' => 'UserController@create']);
 });
 
