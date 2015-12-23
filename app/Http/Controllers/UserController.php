@@ -31,12 +31,15 @@ class UserController extends Controller
     public function viewUpdate($id)
     {
         $user = User::find($id);
-        
+
+        $messages = \Session::get('messages');
+        $error = \Session::get('error');
+
         //404
         if(!$user)  
             abort(404); 
         
-        return view('users.edit', ['user' => $user]);
+        return view('users.edit', ['user' => $user,'messages' => $messages, 'error' => $error]);
     }
 
     public function update($id, Request $request)
@@ -90,7 +93,7 @@ class UserController extends Controller
                 $messages[] = Lang::get('user.updateOk');
             }
         }
-        
+
         if($error == Constants::MSG_ERROR_CODE)
             return redirect()->back()->with(['messages' => $messages, 'error' => $error]);
         
