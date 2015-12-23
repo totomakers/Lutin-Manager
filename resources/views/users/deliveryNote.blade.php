@@ -59,5 +59,10 @@
         Cordialement,
         {{ $order->user->name }}
     </p>
+
+    @if(isset($error))
+        <a class="btn btn-success btn-lg" href="{{URL::route('orders::viewAll')}}">Commande suivante</a>
+    @endif
+
 </div>
 @endsection
