@@ -35,27 +35,52 @@
 
 @section('js_page')
 <script>
-   var deleteUser = function(id) {
+   var deleteUser = function(id) 
+   {
        swal({
-          title: "Voulez-vous supprimer ce lutin ?",
-          text: "Ce lutin ne pourras pas être récuperé êtes-vous sûr ?",
+          title: LANG_USER_TITLE_DELETE,
+          text: LANG_USER_CONFIRM_DELETE,
           type: "warning",
           showCancelButton: true,
-          confirmButtonColor: "#DD6B55",
-          confirmButtonText: "Supprimer",
-          cancelButtonText: "Annuler",
+          confirmButtonColor: COLOR_BUTTON_DANGER,
+          confirmButtonText: LANG_GLOBAL_DELETE,
+          cancelButtonText: LANG_GLOBAL_CANCEL,
           closeOnConfirm: false,
-          closeOnCancel: false
+          closeOnCancel: false,
+          showLoaderOnConfirm: true,
         },
         function(isConfirm)
         {
-          if (isConfirm) {
-            swal("Supprimé !", "Votre Lutin a été supprimé", "success");
+          if (isConfirm) 
+          {
+             $.ajax({ 
+                type: "DELETE",
+                url: '{{  URL::route('users::delete', ['id' => '']) }}/'+id, 
+                success: onDelete
+               });
           } 
-          else {
-             swal("Anulé", "Votre Lutin n'a pas été supprimé", "error");
-          }
+          else
+            swal(LANG_GLOBAL_CANCEL, LANG_USER_NOT_DELETE, "error");
         });
+   }
+   
+   var onDelete = function(json)
+   {
+        var result = "success";
+        if(json.error != API_SUCCESS_CODE) //Success code
+            result = "danger";  
+
+        swal({ 
+              title: LANG_GLOBAL_RESULT,
+              text: json.messages[0],
+              type: result,
+              showCancelButton: false,
+              confirmButtonColor: COLOR_BUTTON_CONFIRM,
+              confirmButtonText: LANG_GLOBAL_RELOAD
+          },
+          function(isConfirm){
+            location.reload(); 
+          });
    }
 </script>
 @endsection

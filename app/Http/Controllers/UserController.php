@@ -12,7 +12,7 @@ use App\Models\Item;
 use App\Models\Order;
 use App\Models\OrderRow;
 use App\Models\User;
-use App\Constans;
+use App\Constants;
 
 class UserController extends Controller
 {
@@ -101,12 +101,11 @@ class UserController extends Controller
         else
         {
             $user->active=0;
-
             $user->save();
-            $messages[] = Lang::get('users.deleteOk',["username" => $email]);
+            $messages[] = Lang::get('users.deleteOk',["username" => $user->email]);
         }
         
-        return redirect()->route('users::viewAll')->with(['messages' => $messages, 'error' => $error]);
+        return response()->json(["error" => $error, "messages" => $messages, "data" => $user]);
     }
     
     public function create(Request $request)

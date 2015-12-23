@@ -29,15 +29,52 @@ class OrderController extends Controller
 
         if ($connectedUser->rank==Constants::RANK_ADMIN)
         {
+            // recuperation de la liste des commandes et les totaux
             $orders=Order::where('status','!=', Constants::ORDER_VALIDATE)->get();
-            return view('manager.orderList',['orders' => $orders,'error'=>$error,'messages'=>$messages]);
+            $today = (new \DateTime())->setTime(0,0);
+            // nombre de commandes total
+            $totalOrders=Order::All()->count();
+            // nombre de commandes validées
+            $totalValidated=Order::where('status','=',Constants::ORDER_VALIDATE)->count();
+            // nombre de commandes en attente
+            $totalWaiting=Order::where('status','=',Constants::ORDER_WAITING)->count();
+            // nombre de commandes en cours de traitement
+            $totalAssigned=Order::where('status','=',Constants::ORDER_IN_PROGRESS)->count();
+            // nombre de commandes validées aujourd'hui
+            $todayOrders=Order::where('date_validation','>',$today)->count();
+
+
+            // récuperation de la liste des utilisateurs avec leurs stats
+            $users = User::where('active', 1)->where('rank',0)->get();
+            $detailsUsers=[];
+            foreach ($users as $user)
+            {
+                // nombre de commandes traités par l'utilisateur (au total)
+                $total=Order::where('user_id','=',$user->id)->where('status','=',Constants::ORDER_VALIDATE)->count();
+                $totalRatio=round(($total/$totalValidated)*100);
+                // nombre de commandes traitées par l'utilisateur aujourd'hui
+                $today=Order::where('user_id','=',$user->id)->where('status','=',Constants::ORDER_VALIDATE)->count();
+                $todayRatio=round(($today/$todayOrders)*100);
+                $detailsUsers[]=array($user,$total,$totalRatio,$today,$todayRatio);
+            }
+
+            return view('manager.orderList',
+                ['orders' => $orders,
+                'error'=>$error,
+                'messages'=>$messages,
+                'total'=>$totalOrders,
+                'totalValidated'=>$totalValidated,
+                'today'=>$todayOrders,
+                'waiting'=>$totalWaiting,
+                'assigned'=>$totalAssigned,
+                'detailsUsers'=>$detailsUsers]);
         }
         else
         {
-            // on recherche si on a d�j� une commande attribu�e
+            // on recherche si on a déjà une commande attribuée
             $order=Order::where('user_id', $connectedUser->id)->Where('status',Constants::ORDER_IN_PROGRESS)->first();
 
-            // sinon on prend la premi�re libre et on l'assigne
+            // sinon on prend la première libre et on l'assigne
             if ($order==null) {
                 $order = Order::where('status', '=', Constants::ORDER_WAITING)->first();
                 $order->user_id = $connectedUser->id;
