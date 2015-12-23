@@ -20,7 +20,7 @@
                             <td>{{ ($user->rank == 0) ? 'Employé' : 'Manager' }}</td>
                             <td>{{ $user->email }}</td>
                             <td class="text-right">
-                                <a href="{{ URL::route('users::edit', ['id' => $details[0]->id ]) }}" data-toggle="tooltip" data-placement="top" title="Editer"><i class="fa fa-edit fa-2x"></i></a>
+                                <a href="{{ URL::route('users::edit', ['id' => $user->id ]) }}" data-toggle="tooltip" data-placement="top" title="Editer"><i class="fa fa-edit fa-2x"></i></a>
                             </td>
                             <td class="text-right">
                                 <a href="#" onclick="deleteUser({{$user->id}})" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="text-danger fa fa-trash fa-2x"></i></a>
