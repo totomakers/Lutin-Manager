@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Auth;
 
-
 use App\Models\Item;
 
 class ItemController extends Controller
@@ -143,6 +142,5 @@ class ItemController extends Controller
         }
 
         return response()->json(["error" => $error, "messages" => $messages, "data" => $item]);
-
     }
 }
