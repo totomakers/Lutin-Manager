@@ -15,6 +15,13 @@
                         <input type="submit" class="btn btn-success" value="Importer"/>
                 </form>
             </div>
+            <div class="col-xs-12 text-center">
+                Total: {{$total}}  |
+                <span class="status-waiting">En attente: {{$waiting}}</span>  |
+                <span class="status-progress">Assignée: {{$assigned}}</span>  |
+                <span class="status-success">Today: {{$today}} </span>
+            </div>
+
             <div class="row-fluid">
                 <div class="col-xs-offset-1 col-xs-10">
                     <table class="table table-striped table-hover">
