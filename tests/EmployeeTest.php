@@ -6,11 +6,9 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class EmployeeTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    use DatabaseTransactions;
+
+
     public function testEmployeeCreation()
     {
         $this->visit('/auth')
@@ -19,8 +17,81 @@ class EmployeeTest extends TestCase
         ->press('S\'authentifier')
         ->visit('/users')
         ->type('Test Employe', 'name')
-        ->select('EmployÃ©','rank')
+        ->select('0','rank')
         ->type('test@test.com','email')
-        ->type('Test123','password');
+        ->type('Test123','password')
+        ->press('ajouter')
+        ->see('L\'utilisateur :username a été créé.');
+    }
+
+    public function testEmployeeAlreadyExists()
+    {
+
+        $this->visit('/auth')
+        ->type('joel.pere@nomail.com', 'email')
+        ->type('joel','password')
+        ->press('S\'authentifier')
+        ->visit('/users')
+        ->type('Test Employe', 'name')
+        ->select('0','rank')
+        ->type('test@test.com','email')
+        ->type('Test123','password')
+        ->press('ajouter');
+
+        $this->visit('/auth')
+        ->type('joel.pere@nomail.com', 'email')
+        ->type('joel','password')
+        ->press('S\'authentifier')
+        ->visit('/users')
+        ->type('Test Employe', 'name')
+        ->select('0','rank')
+        ->type('test@test.com','email')
+        ->type('Test123','password')
+        ->press('ajouter')
+        ->see('L\'utilisateur existe déjà.');
+    }
+
+
+
+    public function testEmployeeCreationPwdShort()
+    {
+        $this->visit('/auth')
+        ->type('joel.pere@nomail.com', 'email')
+        ->type('joel','password')
+        ->press('S\'authentifier')
+        ->visit('/users')
+        ->type('Test Employe1', 'name')
+        ->select('0','rank')
+        ->type('test1@test.com','email')
+        ->type('Tst3','password')
+        ->press('ajouter');
+    }
+
+    public function testEmployeeCreationPwdLong()
+    {
+        $this->visit('/auth')
+        ->type('joel.pere@nomail.com', 'email')
+        ->type('joel','password')
+        ->press('S\'authentifier')
+        ->visit('/users')
+        ->type('Test Employe2', 'name')
+        ->select('0','rank')
+        ->type('test2@test.com','email')
+        ->type('Tst3dsfsdfsdfdssdf','password')
+        ->press('ajouter');
+    }
+
+    public function testEmployeeCreationNoCaps()
+    {
+        $this->visit('/auth')
+        ->type('joel.pere@nomail.com', 'email')
+        ->type('joel','password')
+        ->press('S\'authentifier')
+        ->visit('/users')
+        ->type('Test Employe3', 'name')
+        ->select('0','rank')
+        ->type('test3@test.com','email')
+        ->type('st3dsfsdfsdfdssdf','password')
+        ->press('ajouter');
     }
 }

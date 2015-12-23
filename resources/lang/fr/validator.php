@@ -1,5 +1,5 @@
 <?php
 
 return [
-    "global" => "Le champs :name n'est pas correct."
+    "global" => "Le champ :name n'est pas correct."
 ];
