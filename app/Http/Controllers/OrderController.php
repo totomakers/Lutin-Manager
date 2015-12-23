@@ -214,5 +214,7 @@ class OrderController extends Controller
             ->with('messages',$messages);
     }
 
+    public function validateOrder(Request $request, $id){
 
+    }
 }
