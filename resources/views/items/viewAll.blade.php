@@ -16,8 +16,6 @@
                             <th></th>
                         </tr>
                         </thead>
-
-
                         <tbody>
                             {{-- add form --}}
                             <form method="post" action="{{ URL::route('items::create') }}">
