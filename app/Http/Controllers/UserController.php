@@ -54,7 +54,7 @@ class UserController extends Controller
             'name'              => 'string|required',
             'rank'              => 'integer|required|min:0',
             'email'             => 'email|required',
-            'password'          => 'string',
+            'password'          => 'string|min:4|max:32',
         );
         
         $validatorUser = Validator::make($request->all(), $rulesUser);
@@ -137,7 +137,7 @@ class UserController extends Controller
             'name'              => 'string|required',
             'rank'              => 'integer|required|min:0',
             'email'             => 'email|required',
-            'password'          => 'string|required',
+            'password'          => 'string|required|min:4|max:32',
         );
 
         $validatorUser = Validator::make($request->all(), $rulesUser);
