@@ -14,7 +14,20 @@
 }
 
 .user-view{
-    margin-top:250px;
+    margin-top:200px;
+}
+
+.bar{
+    height:5px;
+    background-color: #FFFFFF;
+    position: relative;
+    top: 170px;
+    width:60%;
+    margin-left: 20%;
+}
+
+.weight{
+    margin-top: 190px;
 }
 
 em {
@@ -71,3 +84,16 @@ em {
     font-weight: bold;
     font-size: 2em;
 }
+
+thead> tr{
+    font-size: 1.5em;
+
+}
+
+/* Input number */
+
+input[type=number] {
+
+    width:60px;
+}
+
