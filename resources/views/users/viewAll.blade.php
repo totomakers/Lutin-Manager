@@ -5,14 +5,13 @@
     @extends('manager.menu')
     <div class="container-fluid animated fadeIn">
         <div class="row-fluid">
-            <div class="col-xs-offset-2 col-xs-8">
-                <table class="table table-bordered table-striped table-hover">
+            <div class="col-xs-offset-1 col-xs-10">
+                <table class="table table-striped table-hover">
                     <thead>
                         <th>Nom</th>
                         <th>Rang</th>
                         <th>Email</th>
                         <th>Mot de passe</th>
-                        <th class="text-right"></th>
                         <th class="text-right"></th>
                     </thead>
                     {{-- add form --}}
@@ -27,23 +26,22 @@
                             </td>
                             <td><input type="email" name="email" class="form-control input-sm" required></td>
                             <td><input type="password" name="password" class="form-control input-sm" required></td>
-                            <td>{{ csrf_field() }}</td>
                             <td class="text-right">
+                                {{ csrf_field() }}
                                 <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Ajouter" type="submit"><i class="fa fa-plus"></i></button>
                             </td>
                         </tr>
                     </form>
                     @foreach ($users as $user)
                         <tr>
-                            <td>{{ $user->name }}</td>
+                            <td><i class="fa {{ ($user->rank == 0) ? 'fa-industry' : 'fa-briefcase' }}  fa-lg"></i> &nbsp;{{ $user->name }}</td>
                             <td>{{ ($user->rank == 0) ? 'Employé' : 'Manager' }}</td>
-                            <td>{{ $user->email }}</td>
+                            <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                             <td></td>
                             <td class="text-right">
                                 <a href="{{ URL::route('users::edit', ['id' => $user->id ]) }}" data-toggle="tooltip" data-placement="top" title="Editer"><i class="fa fa-edit fa-2x"></i></a>
-                            </td>
-                            <td class="text-right">
-                                <a href="#" onclick="deleteUser({{$user->id}})" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="text-danger fa fa-trash fa-2x"></i></a>
+                                &nbsp;
+                                <a href="#" onclick="deleteUser({{$user->id}})" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="text-danger fa fa-ban fa-2x"></i></a>
                             </td>
                         </tr>
                     @endforeach

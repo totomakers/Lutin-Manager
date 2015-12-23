@@ -1,45 +1,35 @@
-.v-center {
-    display: inline-block;
-    vertical-align: middle !important;
-    float: none;
-}
-
-#logo {
-    margin-top: 17px;
-    margin-right: 10px;
-}
-
+/* Login form */
 .connection {
     margin-top: 15%;
 }
 
-.user-view {
-    margin-top: 200px;
-}
-
-.bar {
-    height: 5px;
-    background-color: #FFFFFF;
-    position: relative;
-    top: 180px;
-    width: 60%;
-    border-radius: 100%;
-    margin-left: 20%;
-}
-
-.weight {
-    margin-top: 200px;
-}
-
-em {
+/* Subtitle application name */
+.subtitle {
     color: #ffd700;
 }
 
-.users-info {
-
-    background-color: #3D5062;
+/* Tableau */
+.tab-tr 
+{
+    font-size: 1.5em;
 }
 
+tr
+{
+    font-size: 1.3em;
+}
+
+.tab-head > .tab-tr 
+{
+    font-weight: bold;
+    font-size: 2em;
+}
+
+thead> tr{
+    font-size: 1.5em;
+}
+
+/* Commmand Status */
 .status-progress {
     color: #ff770b;
 }
@@ -52,10 +42,7 @@ em {
     color: #2aff0b;
 }
 
-.btn-import {
-    margin-bottom: 15px;
-}
-
+/* Support input type file */
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -77,23 +64,7 @@ em {
     display: block;
 }
 
-/* Tableau */
-.tab-tr {
-    font-size: 1.5em;
-}
-
-.tab-head > .tab-tr {
-    font-weight: bold;
-    font-size: 2em;
-}
-
-thead > tr {
-    font-size: 1.5em;
-
-}
-
 /* Input number */
-
 input[type=number] {
     display: block;
     padding: 3px 6px;
@@ -108,8 +79,3 @@ input[type=number] {
     box-shadow: 0 2px 8px #bbb, inset 0 0 0 1px white;
     width: 60px;
 }
-
-input:focus {
-    background: white;
-}
-
