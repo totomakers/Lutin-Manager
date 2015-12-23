@@ -13,5 +13,6 @@ return [
     "noOrdersInFile"    => "Le fichier ne contient pas de commandes valides",
     "saveError" => "Impossible d'enregistrer les commandes",
     "importOk"  => "Liste importée avec succès",
-    "uniqueSaveError" => "Impossible d'enregistrer la commande :id"
+    "uniqueSaveError" => "Impossible d'enregistrer la commande :id",
+    'quantityError' => 'La quantit� de l\'objet ":name" n\'est pas bonne'
 ];

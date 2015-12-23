@@ -215,17 +215,30 @@ class OrderController extends Controller
     }
 
     public function validateOrder(Request $request, $id){}
-    
-    public function deliveryNote(Request $request)
+
+    public function deliveryNote($id, Request $request)
     {   
         $error = Constants::MSG_OK_CODE;
         $messages = [];
 
-        //$order = $request->order;
-        $order = Order::find(2);
-        $order->status = Constants::ORDER_VALIDATE;
-        $order->date_validation = Carbon::now();
-        
+        $order = Order::find($id);
+
+        foreach ($order->rows as $row)
+        {
+            if($request[$row->item->name] != $row->quantity)
+            {
+                $messages[] = Lang::get('order.quantityError', ["item" => $row->item->name]);
+                $error = Constants::MSG_ERROR_CODE;
+            }
+        }
+        if($error == Constants::MSG_ERROR_CODE)
+            echo "erreur";//return redirect()->route('orders::viewAll')->with(['messages' => $messages, 'error' => $error]);
+
+        if($order->status != Constants::ORDER_VALIDATE)
+        {    
+            $order->status = Constants::ORDER_VALIDATE;
+            $order->date_validation = Carbon::now(1);
+        }
         if(!$order->save())
         {
             $messages[] = Lang::get('order.uniqueSaveError', ["id" => $order->id]);
