@@ -57,6 +57,10 @@ class ConnectionTest extends TestCase
             ->seePageIs('/orders');
     }
 
+    //mdp + login faux
 
+    //mdp faux + login vrai
+
+    // login faux + mdp vrai
 
 }

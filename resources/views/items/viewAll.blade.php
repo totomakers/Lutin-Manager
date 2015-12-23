@@ -19,17 +19,21 @@
                         </thead>
                         <tbody>
 
+                        <?php $i = 1; ?>
+
                         @foreach($items as $item)
+
                             <tr>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->weight }}</td>
                                 <td class="text-right">
-                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Editer"><i class="fa fa-edit fa-2x"></i></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Editer"><i class="fa fa-edit fa-2x" ></i></a>
                                 </td>
                                 <td class="text-right">
                                     <a href="#" onclick="deleteItem({{$item->id}})" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="text-danger fa fa-trash fa-2x"></i></a>
                                 </td>
                             </tr>
+
                         @endforeach
                         </tbody>
                     </table>
