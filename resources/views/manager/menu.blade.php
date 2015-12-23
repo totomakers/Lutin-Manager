@@ -3,7 +3,7 @@
         <div class="col-xs-10">
             <img class="img-responsive pull-left" src="{{ URL::asset('custom/img/logo.png') }}" alt="Logo" id="logo"/>
             <h1>Lutin Manager</h1>
-            <p class="subtitle">Et Joyeux Noël à  tous!</p>
+            <span class="subtitle">Et Joyeux Noël à  tous!</span>
         </div>
         <div class="col-xs-2 text-center">
             <div class="well well-sm">
