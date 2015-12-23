@@ -9,16 +9,35 @@
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <th>Nom</th>
-                        <th>Rank</th>
+                        <th>Rang</th>
                         <th>Email</th>
-                        <th class="text-right">Editer</th>
-                        <th class="text-right">Supprimer</th>
+                        <th>Mot de passe</th>
+                        <th class="text-right"></th>
+                        <th class="text-right"></th>
                     </thead>
+                    <form>
+                        <tr>
+                            <td><input type="text" class="form-control input-sm" required></input></td>
+                            <td>
+                                <select class="form-control input-sm">
+                                  <option value=0>Employé</option>
+                                  <option value=1>Manager</option>>
+                                </select>
+                            </td>
+                            <td><input type="email" name="email" class="form-control input-sm" required></td>
+                            <td><input type="password" name="password" class="form-control input-sm" required></td>
+                            <td></td>
+                            <td class="text-right">
+                                <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Ajouter" type="submit"><i class="fa fa-plus"></i></button>
+                            </td>
+                        </tr>
+                    </form>
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ ($user->rank == 0) ? 'Employé' : 'Manager' }}</td>
                             <td>{{ $user->email }}</td>
+                            <td></td>
                             <td class="text-right">
                                 <a href="{{ URL::route('users::edit', ['id' => $user->id ]) }}" data-toggle="tooltip" data-placement="top" title="Editer"><i class="fa fa-edit fa-2x"></i></a>
                             </td>
