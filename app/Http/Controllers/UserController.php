@@ -36,6 +36,17 @@ class UserController extends Controller
 
         return view('users.viewAll', ['list' => $list,'messages' => $messages, 'error' => $error]);
     }
+    
+    public function viewUpdate($id)
+    {
+        $user = User::find($id);
+        
+        //404
+        if(!$user)  
+            abort(404); 
+        
+        return view('users.edit', ['user' => $user]);
+    }
 
     public function update($id, Request $request)
     {
@@ -44,11 +55,10 @@ class UserController extends Controller
         
         //rules to apply of each field
         $rulesUser = array(
-            'id'                => 'integer|required',
             'name'              => 'string|required',
             'rank'              => 'integer|required|min:0',
-            'email'             => 'string|required|regex:^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-            'password'          => 'string|required|regex:^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,15}$',
+            'email'             => 'email|required',
+            'password'          => 'string',
         );
 
         $validatorUser = Validator::make($request->all(), $rulesUser);
@@ -67,8 +77,8 @@ class UserController extends Controller
             $email = Request::input('email');
             $password = Request::input('password');
 
-            $provider = new AccountProvider();
-            $password = $provider->hashPassword($email, $password);
+            if($password != '') 
+                $password = AccountServiceProvider::hashPassword($email, $password);
 
             $user = User::find($id);
             if(!$user)
@@ -81,12 +91,17 @@ class UserController extends Controller
                 $user->name = $name;
                 $user->rank = $rank;
                 $user->email = $email;
-                $user->sha1_password = $password;
+                
+                if($password != '') 
+                    $user->sha1_password = $password;
 
                 $user->save();
                 $messages[] = Lang::get('user.updateOk');
             }
         }
+        
+        if($error == Constants::MSG_ERROR_CODE)
+            return redirect()->back()->with(['messages' => $messages, 'error' => $error]);
         
         return redirect()->route('users::viewAll')->with(['messages' => $messages, 'error' => $error]);
     }
