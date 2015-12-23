@@ -6,7 +6,7 @@
     <div class="container-fluid animated fadeIn">
         <div class="row-fluid">
             <div class="col-xs-offset-3 col-xs-6">
-                <h2> <a href="{{ URL::route('items::viewAll') }}" ><i class="fa fa-backward"></i> Retour</a> - Formulaire d'édition de l'article: {{ $item->name }}</h2>
+                <h3><a class="btn btn-info" href="{{ URL::route('items::viewAll') }}" ><i class="fa fa-chevron-circle-left"></i> Retour</a> Formulaire d'édition de l'article {{ $item->name }}</h3>
                 <hr>
                 <form class="form-horizontal" method="post" action="{{ URL::route('items::update', ['id' => $item->id ]) }}" >
                     <div class="form-group">
