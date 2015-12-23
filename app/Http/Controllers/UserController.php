@@ -31,8 +31,6 @@ class UserController extends Controller
             $today=Order::where('user_id','=',$user->id)->where('status','=',Constants::ORDER_VALIDATE)->count();
             $list[]=array($user,$total,$today);
         }
-        //var_dump($list);
-
 
         return view('users.viewAll', ['list' => $list,'messages' => $messages, 'error' => $error]);
     }
