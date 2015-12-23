@@ -13,21 +13,22 @@
     margin-top: 15%;
 }
 
-.user-view{
-    margin-top:200px;
+.user-view {
+    margin-top: 200px;
 }
 
-.bar{
-    height:5px;
+.bar {
+    height: 5px;
     background-color: #FFFFFF;
     position: relative;
-    top: 170px;
-    width:60%;
+    top: 180px;
+    width: 60%;
+    border-radius: 100%;
     margin-left: 20%;
 }
 
-.weight{
-    margin-top: 190px;
+.weight {
+    margin-top: 200px;
 }
 
 em {
@@ -50,7 +51,6 @@ em {
 .status-success {
     color: #2aff0b;
 }
-
 
 .btn-import {
     margin-bottom: 15px;
@@ -76,16 +76,18 @@ em {
     cursor: inherit;
     display: block;
 }
+
 /* Tableau */
 .tab-tr {
     font-size: 1.5em;
 }
+
 .tab-head > .tab-tr {
     font-weight: bold;
     font-size: 2em;
 }
 
-thead> tr{
+thead > tr {
     font-size: 1.5em;
 
 }
@@ -93,7 +95,21 @@ thead> tr{
 /* Input number */
 
 input[type=number] {
+    display: block;
+    padding: 3px 6px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 110%;
+    outline: 0;
+    background: #eee;
+    color: #333;
+    border-radius: 1px;
+    text-align: center;
+    box-shadow: 0 2px 8px #bbb, inset 0 0 0 1px white;
+    width: 60px;
+}
 
-    width:60px;
+input:focus {
+    background: white;
 }
 
