@@ -52,49 +52,63 @@ class EmployeeTest extends TestCase
     }
 
 
+    public function testEmployeeCreationBadEmail()
+    {
+        $this->visit('/auth')
+            ->type('joel.pere@nomail.com', 'email')
+            ->type('joel','password')
+            ->press('S\'authentifier')
+            ->visit('/users')
+            ->type('Test Employe3', 'name')
+            ->select('0','rank')
+            ->type('test','email')
+            ->type('Zt3dsfsdfsf','password')
+            ->press('ajouter')
+            ->see('Le champ email n\'est pas correct.');
+    }
 
     public function testEmployeeCreationPwdShort()
     {
         $this->visit('/auth')
-        ->type('joel.pere@nomail.com', 'email')
-        ->type('joel','password')
-        ->press('S\'authentifier')
-        ->visit('/users')
-        ->type('Test Employe1', 'name')
-        ->select('0','rank')
-        ->type('test1@test.com','email')
-        ->type('Tst3','password')
-        ->press('ajouter')
-        ->see("Le champ password n'est pas correct.");
+            ->type('joel.pere@nomail.com', 'email')
+            ->type('joel','password')
+            ->press('S\'authentifier')
+            ->visit('/users')
+            ->type('Test Employe1', 'name')
+            ->select('0','rank')
+            ->type('test1@test.com','email')
+            ->type('Tst3','password')
+            ->press('ajouter')
+            ->see('Le champ password n\'est pas correct.');
     }
 
     public function testEmployeeCreationPwdLong()
     {
         $this->visit('/auth')
-        ->type('joel.pere@nomail.com', 'email')
-        ->type('joel','password')
-        ->press('S\'authentifier')
-        ->visit('/users')
-        ->type('Test Employe2', 'name')
-        ->select('0','rank')
-        ->type('test2@test.com','email')
-        ->type('Tst3dsfsdfsdfdssdf','password')
-        ->press('ajouter')
-        ->see("Le champ password n'est pas correct.");
+            ->type('joel.pere@nomail.com', 'email')
+            ->type('joel','password')
+            ->press('S\'authentifier')
+            ->visit('/users')
+            ->type('Test Employe2', 'name')
+            ->select('0','rank')
+            ->type('test2@test.com','email')
+            ->type('Tst3dsfsdfsdfdssdf','password')
+            ->press('ajouter')
+            ->see('Le champ password n\'est pas correct.');
     }
 
     public function testEmployeeCreationNoCaps()
     {
         $this->visit('/auth')
-        ->type('joel.pere@nomail.com', 'email')
-        ->type('joel','password')
-        ->press('S\'authentifier')
-        ->visit('/users')
-        ->type('Test Employe3', 'name')
-        ->select('0','rank')
-        ->type('test3@test.com','email')
-        ->type('st3dsfsdfsdfdssdf','password')
-        ->press('ajouter')
-        ->see("Le champ password n'est pas correct.");
+            ->type('joel.pere@nomail.com', 'email')
+            ->type('joel','password')
+            ->press('S\'authentifier')
+            ->visit('/users')
+            ->type('Test Employe3', 'name')
+            ->select('0','rank')
+            ->type('test3@test.com','email')
+            ->type('st3dsf','password')
+            ->press('ajouter')
+            ->see('Le champ password n\'est pas correct.');
     }
 }

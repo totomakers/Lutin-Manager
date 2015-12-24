@@ -18,7 +18,7 @@ class ConnectionTest extends TestCase
             ->type('', 'email')
             ->type('test','password')
             ->press('S\'authentifier')
-            ->see(' Nom d\'utilisateur ou Mot de passe invalide');
+            ->seePageIs('/auth');
     }
 
     public function testMdpVide()
@@ -27,7 +27,7 @@ class ConnectionTest extends TestCase
             ->type('jo@el.com', 'email')
             ->type('','password')
             ->press('S\'authentifier')
-            ->see(' Nom d\'utilisateur ou Mot de passe invalide');
+            ->seePageIs('/auth');
     }
 
     public function testLoginMdpVide()
@@ -36,7 +36,7 @@ class ConnectionTest extends TestCase
             ->type('', 'email')
             ->type('','password')
             ->press('S\'authentifier')
-            ->see(' Nom d\'utilisateur ou Mot de passe invalide');
+            ->seePageIs('/auth');
     }
 
     public function testManagerOK()
