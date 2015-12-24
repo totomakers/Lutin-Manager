@@ -17,5 +17,7 @@ return [
     "uniqueSaveError" => "Impossible d'enregistrer la commande :id",
     'quantityError' => 'La quantité de l\'objet ":name" n\'est pas bonne',
     'alreadyValidated' => 'La commande a déjà été validée',
-    'lineImported' => ':number commandes importées'
+    'lineImported' => ':number commandes importées',
+    'productNotFound' => 'produit inconnu dans commande :id',
+    'productArchived' => 'produit :produit archivé dans commande :id'
 ];

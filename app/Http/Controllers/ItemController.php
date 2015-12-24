@@ -102,8 +102,12 @@ class ItemController extends Controller
                 $messages[] = Lang::get('items.notFoundById',['id' => $id]);
                 $error=Constants::MSG_ERROR_CODE;
             } else {
-                $item->name = $name;
-                $item->weight = $weight;
+                $newItem = new Item();
+                $newItem->name = $name;
+                $newItem->weight = $weight;
+                $newItem->active = Constants::ACTIVE;
+                $newItem->save();
+                $item->active = Constants::ARCHIVED;
                 $item->save();
                 $error=Constants::MSG_OK_CODE;
                 $messages[]=Lang::get('items.modified');

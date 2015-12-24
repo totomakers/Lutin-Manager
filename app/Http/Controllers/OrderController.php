@@ -184,14 +184,23 @@ class OrderController extends Controller
                         continue;
                     }
                     $quantity = rtrim(substr($value, strpos($value, "(") + 1), ")");
-
                     $row = new OrderRow();
                     $ref = Item::where("name","=",$item)->first();
-                    $row->item_id = $ref->id;
-                    $row->order_id = $order->id;
-                    $row->quantity = $quantity;
-
-                    $orderRows[] = $row;
+                    if ($ref!=null) {
+                        $row->item_id = $ref->id;
+                        $row->order_id = $order->id;
+                        $row->quantity = $quantity;
+                        $orderRows[] = $row;
+                        if ($ref->active==Constants::ARCHIVED) {
+                            $messages[] = Lang::get('orders.productArchived', ['produit'=> $ref->name,'id' => $orderNumber]);
+                            $error = Constants::MSG_WARNING_CODE;
+                        }
+                    }
+                    else
+                    {
+                        $messages[]=Lang::get('orders.productNotFound',['id'=>$orderNumber]);
+                        $error=Constants::MSG_WARNING_CODE;
+                    }
                 }
 
                 if($order->save())
@@ -206,7 +215,6 @@ class OrderController extends Controller
                     $messages[]=Lang::get('orders.saveError');
                 }
             }
-
             fclose($handle);
         }
         else
