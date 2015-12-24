@@ -45,7 +45,7 @@ class OrderController extends Controller
 
 
             // récuperation de la liste des utilisateurs avec leurs stats
-            $users = User::where('active', Constants::ACTIVE)->where('rank',0)->get();
+            $users = User::where('active', Constants::ACTIVE)->where('rank',Constants::RANK_USER)->get();
             $detailsUsers=[];
             foreach ($users as $user)
             {

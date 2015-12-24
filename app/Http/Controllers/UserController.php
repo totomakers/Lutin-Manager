@@ -170,7 +170,7 @@ class UserController extends Controller
                 $user->rank = $rank;
                 $user->email = $email;
                 $user->sha1_password = $password;
-                $user->active = 1;
+                $user->active = Constants::ACTIVE;
                 $user->save();
                 
                 $messages[] = Lang::get('users.createOk', ["username" => $email]);
