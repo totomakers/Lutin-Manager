@@ -174,6 +174,7 @@ class OrderController extends Controller
                 //======================
                 $detail = str_getcsv($data[4], ";");
                 $orderRows = [];
+                $orderHasProducts=false;
                 foreach ($detail as $key => $value)
                 {
                     $item = trim(substr($value, 0, strpos($value, "(")));
@@ -184,9 +185,9 @@ class OrderController extends Controller
                         continue;
                     }
                     $quantity = rtrim(substr($value, strpos($value, "(") + 1), ")");
-                    $row = new OrderRow();
-                    $ref = Item::where("name","=",$item)->first();
+                                        $ref = Item::where("name","=",$item)->first();
                     if ($ref!=null) {
+                        $row = new OrderRow();
                         $row->item_id = $ref->id;
                         $row->order_id = $order->id;
                         $row->quantity = $quantity;
@@ -195,12 +196,20 @@ class OrderController extends Controller
                             $messages[] = Lang::get('orders.productArchived', ['produit'=> $ref->name,'id' => $orderNumber]);
                             $error = Constants::MSG_WARNING_CODE;
                         }
+                        $orderHasProducts=true;
                     }
                     else
                     {
-                        $messages[]=Lang::get('orders.productNotFound',['id'=>$orderNumber]);
+                        $messages[]=Lang::get('orders.productNotFound',['produit' => $item,'id' => $orderNumber]);
                         $error=Constants::MSG_WARNING_CODE;
                     }
+                }
+
+                if(!$orderHasProducts)
+                {
+                    $messages[]=Lang::get('orders.hasNoProducts',['id'=>$orderNumber]);
+                    $error=Constants::MSG_WARNING_CODE;
+                    continue;
                 }
 
                 if($order->save())

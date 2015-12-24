@@ -18,6 +18,6 @@ return [
     'quantityError' => 'La quantité de l\'objet ":name" n\'est pas bonne',
     'alreadyValidated' => 'La commande a déjà été validée',
     'lineImported' => ':number commandes importées',
-    'productNotFound' => 'produit inconnu dans commande :id',
+    'productNotFound' => 'l\'article :produit est inconnu dans la commande :id',
     'productArchived' => 'produit :produit archivé dans commande :id'
 ];
