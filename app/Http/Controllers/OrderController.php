@@ -49,12 +49,16 @@ class OrderController extends Controller
             $detailsUsers=[];
             foreach ($users as $user)
             {
+                $totalRatio = 0;
+                $todayRatio = 0;
+            
                 // nombre de commandes traités par l'utilisateur (au total)
                 $total=Order::where('user_id','=',$user->id)->where('status','=',Constants::ORDER_VALIDATE)->count();
-                $totalRatio=round(($total/$totalValidated)*100);
+                if($totalValidated != 0) $totalRatio=round(($total/$totalValidated)*100);
+                
                 // nombre de commandes traitées par l'utilisateur aujourd'hui
                 $today=Order::where('user_id','=',$user->id)->where('status','=',Constants::ORDER_VALIDATE)->count();
-                $todayRatio=round(($today/$todayOrders)*100);
+                if($todayOrders != 0) $todayRatio=round(($today/$todayOrders)*100);
                 $detailsUsers[]=array($user,$total,$totalRatio,$today,$todayRatio);
             }
 
